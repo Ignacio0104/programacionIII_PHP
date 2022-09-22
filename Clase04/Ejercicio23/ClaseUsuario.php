@@ -3,13 +3,13 @@
 
 class Usuario
 {
-    private string $nombre;
-    private string $clave;
-    private string $mail;
-    private int $id;
-    private DateTime $fechaRegistro;
-    private static int $primerId;
-    private static $primeraVez = false;
+    public string $nombre;
+    public string $clave;
+    public string $mail;
+    public int $id;
+    public DateTime $fechaRegistro;
+    public static int $primerId;
+    public static $primeraVez = false;
 
     private static function inicializar()
     {
@@ -50,10 +50,21 @@ class Usuario
         return $this->id;
     }
 
+    public function setId($id)
+    {
+        $this->id=$id;
+    }
+
     public function getFechaRegistro()
     {
         return $this->fechaRegistro;
     }
+
+    public function setFechaRegistro($fechaRegistro)
+    {
+        $this->fechaRegistro=$fechaRegistro;
+    }
+
     public function MostrarInformacion(Usuario $usuario)
     {
         echo "Usuario: $usuario->nombre | Clave: $usuario->clave | Mail: $usuario->mail \n ";
@@ -68,6 +79,7 @@ class Usuario
         return $texto;
     }
 
+
     public function GuardarUsuario (Usuario $usuario)
     {
         $archivo = fopen("usuarios.csv","a");
@@ -80,19 +92,43 @@ class Usuario
         return $confirmacion;
     }
 
-    
-    public function GuardarUsuarioJSON (Usuario $usuario)
+
+    public static function GuardarListaJSON ($usuarios)
     {
-        $archivo = fopen("usuarios.json","a");
+        $archivo = fopen("usuarios.json","w");
         $confirmacion = false; 
-        if(fwrite($archivo,json_encode($usuario->InformacionUsuario($usuario)). PHP_EOL)!=false)
+        
+        if(fwrite($archivo,json_encode($usuarios,JSON_PRETTY_PRINT). PHP_EOL)!=false)
         {
             $confirmacion = true;
-        }
+        }  
         fclose($archivo);
         return $confirmacion;
     }
 
+    public static function LeeUsuariosListaJSON($nombreArchivo)
+    {
+        $archivo = fopen($nombreArchivo,"r");
+        $arrayAtributos = array();
+        $arrayDeUsuarios = array();
+
+        $json = fread($archivo,filesize($nombreArchivo));
+        $arrayAtributos=json_decode($json,true);
+          
+        if(!empty($arrayAtributos))
+        {
+            foreach ($arrayAtributos as $usuarioJson)
+            {
+                $usuarioAuxiliar = new Usuario($usuarioJson["nombre"],$usuarioJson["clave"],$usuarioJson["mail"]);
+                $usuarioAuxiliar->setId($usuarioJson["id"]);  
+                $usuarioAuxiliar->setFechaRegistro(new DateTime($usuarioJson["fechaRegistro"]["date"])); 
+                array_push($arrayDeUsuarios,$usuarioAuxiliar);
+            }
+        }
+
+        fclose($archivo);  
+        return $arrayDeUsuarios;
+    }
 
     public static function LeeUsuarios($nombreArchivo)
     {
@@ -112,24 +148,6 @@ class Usuario
         return $arrayDeUsuarios;
     }
 
-    public static function LeeUsuariosJSON($nombreArchivo)
-    {
-        $archivo = fopen($nombreArchivo,"r");
-        $arrayAtributos = array();
-        $arrayDeUsuarios = array();
-
-       while(!feof($archivo))
-        {
-            $arrayAtributos=fgetcsv($archivo);           
-            if(!empty($arrayAtributos))
-            {
-                $arraySeparado = explode(",",$arrayAtributos[0]);
-                $usuarioAuxiliar = new Usuario($arraySeparado[0],$arraySeparado[1],$arraySeparado[2]);
-                    array_push($arrayDeUsuarios,$usuarioAuxiliar);
-            }
-        }
-        return $arrayDeUsuarios;
-    }
 
     public static function ComprobarLogin($listaDeUsuarios,$usuarioIngresado,$claveIngresada)
     {
@@ -150,6 +168,21 @@ class Usuario
         }
         echo "Usuario no registrado";
     }
+
+    public static function BuscarUsuario($listaDeUsuarios,$usuarioIngresado)
+    {
+        foreach ($listaDeUsuarios as $usuario)
+        {
+            if(strcmp($usuario->getNombre(),$usuarioIngresado)==0)
+            {
+                return $usuario;
+            }
+        }
+        return null;
+    }
 }
 
+
 ?>
+
+

@@ -1,12 +1,14 @@
 <?php
 
+use Producto as GlobalProducto;
+
 class Producto
 {
-    private int $codigoBarras;
-    private string $nombre;
-    private string $tipo;
-    private int $stock;
-    private float $precio;
+    public int $codigoBarras;
+    public string $nombre;
+    public string $tipo;
+    public int $stock;
+    public float $precio;
 
     public function __construct($codigoBarras,$nombre,$tipo,$stock,$precio)
     {       
@@ -59,7 +61,7 @@ class Producto
     }
 
     
-    public function GuardarProductoJSON (Producto $producto)
+    /*public function GuardarProductoJSON (Producto $producto)
     {
         $archivo = fopen("productos.json","a");//Sobreescribo cada vez que guardo
         $confirmacion = false; 
@@ -69,40 +71,41 @@ class Producto
         }
         fclose($archivo);
         return $confirmacion;
-    }
+    }*/
      
     public function GuardarListaProductosJSON ($arrayProductos)
     {
-        $archivo = fopen("productos.json","w");//Sobreescribo cada vez que guardo
+        $archivo = fopen("productos.json","w");
         $confirmacion = false; 
-        foreach ($arrayProductos as $producto)
+        
+        if(fwrite($archivo,json_encode($arrayProductos,JSON_PRETTY_PRINT). PHP_EOL)!=false)
         {
-            if(fwrite($archivo,json_encode($producto->InformacionProducto($producto)). PHP_EOL)!=false)
-            {
-                $confirmacion = true;
-            }
-        }
+            $confirmacion = true;
+        }  
         fclose($archivo);
         return $confirmacion;
     }
 
-    public static function LeeUsuariosJSON($nombreArchivo)
+    public static function LeeProductosListaJSON($nombreArchivo)
     {
         $archivo = fopen($nombreArchivo,"r");
         $arrayAtributos = array();
-        $arrayDeUsuarios = array();
+        $arrayDeProductos = array();
 
-       while(!feof($archivo))
+        $json = fread($archivo,filesize($nombreArchivo));
+        $arrayAtributos=json_decode($json,true);
+          
+        if(!empty($arrayAtributos))
         {
-            $arrayAtributos=fgetcsv($archivo);           
-            if(!empty($arrayAtributos))
+            foreach ($arrayAtributos as $productoJson)
             {
-                $arraySeparado = explode(",",$arrayAtributos[0]);
-                $usuarioAuxiliar = new Producto($arraySeparado[0],$arraySeparado[1],$arraySeparado[2],$arraySeparado[3],$arraySeparado[4]);
-                    array_push($arrayDeUsuarios,$usuarioAuxiliar);
+                $productoAuxiliar = new Producto($productoJson["codigoBarras"],$productoJson["nombre"],
+                $productoJson["tipo"],$productoJson["stock"],$productoJson["precio"]);
+                array_push($arrayDeProductos,$productoAuxiliar);
             }
         }
-        return $arrayDeUsuarios;
+        fclose($archivo);  
+        return $arrayDeProductos;
     }
 
     public static function ConseguirUltimoID($listaDeProductos)
@@ -122,11 +125,25 @@ class Producto
         return (int)$idMaxima;
     }
 
-    public function BuscarProducto($listaDeProductos,$productoIngresado)
+    public static function BuscarProducto($listaDeProductos,$productoIngresado)
     {
         foreach ($listaDeProductos as $producto)
         {
-            if($producto->getNombre()==$productoIngresado->getNombre())
+            if(strcmp($producto->getNombre(),$productoIngresado->getNombre())==0)
+            {
+                return $producto;
+            }
+        }
+
+        return null;
+    }
+
+    
+    public static function BuscarProductoPorId($listaDeProductos,$idProducto)
+    {
+        foreach ($listaDeProductos as $producto)
+        {
+            if($producto->getCodigo()==$idProducto)
             {
                 return $producto;
             }

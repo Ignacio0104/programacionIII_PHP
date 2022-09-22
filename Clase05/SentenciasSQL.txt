@@ -1,0 +1,131 @@
+CREATE TABLE usuario(
+    id int(10) NOT NULL,
+    nombre varchar(50) NOT NULL,
+    apellido varchar(50) NOT NULL,
+    clave varchar(50) NOT NULL,
+    mail varchar(50) NOT NULL,
+    fecha_de_registro date NOT NULL,
+    localidad varchar (100) NOT NULL
+);
+
+alter TABLE usuario add PRIMARY KEY (id);
+alter table usuario AUTO_INCREMENT=101;
+
+INSERT INTO usuario (id,nombre,apellido,clave,mail,fecha_de_registro,localidad) 
+VALUES (101,'Esteban','Madou','2345','dkantor0@example.com','2021-07-01', 'Quilmes');
+
+INSERT INTO usuario (nombre,apellido,clave,mail,fecha_de_registro,localidad)
+VALUES ('German','Garram','1234','ggerram1@hud.gov','2020-08-05','Berazategui');
+
+INSERT INTO usuario (id,nombre,apellido,clave,mail,fecha_de_registro,localidad)
+VALUES (103,'Deloris','Fosis','5678','bsharpe2@wisc.edu','2020-11-28','Avellaneda');
+
+INSERT INTO usuario (id,nombre,apellido,clave,mail,fecha_de_registro,localidad)
+VALUES (104,'Brok','Neiner','4567','bblazic3@desdev.cn','2020-08-12','Quilmes');
+
+INSERT INTO usuario (id,nombre,apellido,clave,mail,fecha_de_registro,localidad)
+VALUES (105,'Garrick','Brent','6789','gbrent4@theguardian.com','2020-12-17','Moron');
+
+INSERT INTO usuario (id,nombre,apellido,clave,mail,fecha_de_registro,localidad)
+VALUES (106,'Bili','Baus','0123','bhoff5@addthis.com','2020-11-27','Moreno');	
+
+CREATE TABLE productos (id INT NOT NULL AUTO_INCREMENT ,
+codigo_de_barra INT NOT NULL ,
+nombre VARCHAR(50) NOT NULL ,
+tipo VARCHAR(50) NOT NULL ,
+stock INT NOT NULL ,
+precio FLOAT NOT NULL ,
+fecha_de_creacion DATE NOT NULL ,
+fecha_de_modificacion DATE NOT NULL ,
+PRIMARY KEY (`id`)) AUTO_INCREMENT = 1001;
+
+
+INSERT INTO producto (codigo_de_barra, nombre, tipo,stock,precio,fecha_de_creacion,fecha_de_modificacion)
+VALUES (77900361, 'Westmacott', 'liquido', 33, 15.87, '2021-9-4', '2020-9-26');
+
+INSERT INTO producto (codigo_de_barra, nombre, tipo,stock,precio,fecha_de_creacion,fecha_de_modificacion)
+VALUES (77900362, 'Spirit', 'solido', 45, 69.74, '2020-9-18', '2020-4-14');
+
+INSERT INTO producto (codigo_de_barra, nombre, tipo,stock,precio,fecha_de_creacion,fecha_de_modificacion)
+VALUES (77900363, 'Newgrosh', 'polvo', 14, 68.19, '2020-11-29', '2021-2-11');
+
+INSERT INTO producto (codigo_de_barra, nombre, tipo,stock,precio,fecha_de_creacion,fecha_de_modificacion)
+VALUES (77900364, 'McNickle', 'polvo', 19, 53.51, '2020-11-28', '2020-4-17');
+
+INSERT INTO producto (codigo_de_barra, nombre, tipo,stock,precio,fecha_de_creacion,fecha_de_modificacion)
+VALUES (77900365, 'Hudd' , 'solido', 68, 26.56, '2020-12-19', '2020-6-19');
+
+INSERT INTO producto (codigo_de_barra, nombre, tipo,stock,precio,fecha_de_creacion,fecha_de_modificacion)
+VALUES (77900366, 'Schrader', 'polvo', 17, 96.54, '2020-8-2','2020-4-18');
+
+INSERT INTO producto (codigo_de_barra, nombre, tipo,stock,precio,fecha_de_creacion,fecha_de_modificacion)
+VALUES (77900367, 'Bachellier', 'solido', 59, 69.17, '2021-1-30', '2020-7-6');
+
+INSERT INTO producto (codigo_de_barra, nombre, tipo,stock,precio,fecha_de_creacion,fecha_de_modificacion)
+VALUES (77900368, 'Fleming', 'solido', 38, 66.77, '2020-10-26', '2020-10-3');
+
+INSERT INTO producto (codigo_de_barra, nombre, tipo,stock,precio,fecha_de_creacion,fecha_de_modificacion)
+VALUES (77900369, 'Hurry', 'solido', 44, 43.01, '2020-7-4', '2020-5-30');
+
+INSERT INTO producto (codigo_de_barra, nombre, tipo,stock,precio,fecha_de_creacion,fecha_de_modificacion)
+VALUES (77900310, 'Krauss','polvo', 73, 35.73, '2021-3-3', '2020-8-30');
+
+CREATE TABLE ventas (id_producto INT NOT NULL ,id_usuario INT NOT NULL ,cantidad INT NOT NULL , fecha_de_venta DATE NOT NULL);
+
+INSERT INTO ventas(id_producto, id_usuario, cantidad, fecha_de_venta)
+VALUES (1001, 101, 2, '2020-7-19');
+
+INSERT INTO ventas(id_producto, id_usuario, cantidad, fecha_de_venta)
+VALUES (1008, 102, 3, '2020-8-16');
+
+INSERT INTO ventas(id_producto, id_usuario, cantidad, fecha_de_venta)
+VALUES (1007, 102, 4, '2021-1-24');
+
+INSERT INTO ventas(id_producto, id_usuario, cantidad, fecha_de_venta)
+VALUES (1006, 103, 5, '2021-1-14');
+
+INSERT INTO ventas(id_producto, id_usuario, cantidad, fecha_de_venta)
+VALUES (1005, 105, 7, '2021-2-22');
+
+INSERT INTO ventas(id_producto, id_usuario, cantidad, fecha_de_venta)
+VALUES (1003, 104, 6, '2020-12-2');
+
+INSERT INTO ventas(id_producto, id_usuario, cantidad, fecha_de_venta)
+VALUES (1003, 106, 6, '2020-6-10');
+
+INSERT INTO ventas(id_producto, id_usuario, cantidad, fecha_de_venta)
+VALUES (1002, 106, 6, '2021-2-4');
+
+INSERT INTO ventas(id_producto, id_usuario, cantidad, fecha_de_venta)
+VALUES (1001, 106, 1, '2020-5-17');
+
+
+
+SELECT apellido, nombre FROM usuario ORDER BY apellido;
+SELECT * FROM producto WHERE tipo = 'liquido';
+SELECT * FROM ventas WHERE cantidad BETWEEN 6 AND 10;
+SELECT SUM(cantidad) FROM ventas;
+SELECT id FROM producto LIMIT 3;
+SELECT usuario.nombre, producto.nombre FROM ventas 
+INNER JOIN usuario ON ventas.id_usuario = usuario.id 
+INNER JOIN producto ON ventas.id_producto = producto.id;
+SELECT producto.precio * ventas.cantidad AS total 
+FROM ventas INNER join producto ON id_producto = id_producto;
+SELECT SUM(ventas.cantidad), id_producto, id_usuario FROM ventas where id_producto = 1003 AND id_usuario = 104;
+SELECT DISTINCT (V.id_producto) FROM ventas as V JOIN usuario ON usuario.id = V.id_usuario WHERE usuario.localidad = 'Avellaneda';
+SELECT * FROM usuario WHERE apellido LIKE '%u%';
+SELECT * FROM ventas WHERE fecha_de_venta BETWEEN '2020-06-01' AND '2021-02-01';
+SELECT * FROM usuario WHERE fecha_de_registro < '2021-01-01';
+INSERT INTO producto(codigo_de_barra, nombre, tipo, stock, fecha_de_creacion, fecha_de_modificacion) 
+VALUES(123456, 'Chocolate', 'Solido', 25,35, NOW(), NOW());
+INSERT INTO usuario(id, nombre, apellido,clave, mail, fecha_de_registro, localidad) 
+VALUES (110,'Ignacio','Smirlian',99999,'ignacio@gmail.com','2022-20-09','Banfield');
+UPDATE producto SET precio = 60.60 where tipo = 'Solido';
+UPDATE producto SET stock = 0 where stock >= 20;
+DELETE FROM producto WHERE id = 1010;
+DELETE FROM usuario WHERE id NOT IN(SELECT ventas.id_usuario FROM ventas);
+
+
+
+
+

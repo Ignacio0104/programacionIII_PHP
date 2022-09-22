@@ -1,0 +1,12 @@
+[
+    {
+        "producto": 1001,
+        "usuario": "nacho",
+        "cantidad": 1
+    },
+    {
+        "producto": 1001,
+        "usuario": "nacho",
+        "cantidad": 2
+    }
+]

@@ -1,0 +1,112 @@
+[
+    {
+        "nombre": "nacho",
+        "clave": "1234",
+        "mail": "nacho@gmail.com",
+        "id": 5612,
+        "fechaRegistro": {
+            "date": "2021-09-22 02:41:50.000000",
+            "timezone_type": 3,
+            "timezone": "Europe\/Berlin"
+        }
+    },
+    {
+        "nombre": "lucas",
+        "clave": "0000",
+        "mail": "lucas@gmail.com",
+        "id": 5613,
+        "fechaRegistro": {
+            "date": "2021-09-22 02:41:50.000000",
+            "timezone_type": 3,
+            "timezone": "Europe\/Berlin"
+        }
+    },
+    {
+        "nombre": "pedro",
+        "clave": "1111",
+        "mail": "pedro@gmail.com",
+        "id": 5614,
+        "fechaRegistro": {
+            "date": "2021-09-22 02:41:50.000000",
+            "timezone_type": 3,
+            "timezone": "Europe\/Berlin"
+        }
+    },
+    {
+        "nombre": "agustin",
+        "clave": "2222",
+        "mail": "agustin@gmail.com",
+        "id": 5615,
+        "fechaRegistro": {
+            "date": "2021-09-22 02:41:50.000000",
+            "timezone_type": 3,
+            "timezone": "Europe\/Berlin"
+        }
+    },
+    {
+        "nombre": "alejandro",
+        "clave": "3333",
+        "mail": "alejandro@gmail.com",
+        "id": 5616,
+        "fechaRegistro": {
+            "date": "2021-09-22 02:41:50.000000",
+            "timezone_type": 3,
+            "timezone": "Europe\/Berlin"
+        }
+    },
+    {
+        "nombre": "franco",
+        "clave": "4444",
+        "mail": "franco@gmail.com",
+        "id": 5617,
+        "fechaRegistro": {
+            "date": "2021-09-22 02:41:50.000000",
+            "timezone_type": 3,
+            "timezone": "Europe\/Berlin"
+        }
+    },
+    {
+        "nombre": "joaquin",
+        "clave": "5555",
+        "mail": "joaquin@gmail.com",
+        "id": 5618,
+        "fechaRegistro": {
+            "date": "2021-09-22 02:41:50.000000",
+            "timezone_type": 3,
+            "timezone": "Europe\/Berlin"
+        }
+    },
+    {
+        "nombre": "esteban",
+        "clave": "6666",
+        "mail": "esteban@gmail.com",
+        "id": 5619,
+        "fechaRegistro": {
+            "date": "2021-09-22 02:41:50.000000",
+            "timezone_type": 3,
+            "timezone": "Europe\/Berlin"
+        }
+    },
+    {
+        "nombre": "Pedro",
+        "clave": "2222",
+        "mail": "pedro@gmail.com",
+        "id": 8477,
+        "fechaRegistro": {
+            "date": "2022-09-22 03:47:59.000000",
+            "timezone_type": 3,
+            "timezone": "Europe\/Berlin"
+        }
+    },
+    {
+        "nombre": "Pedro",
+        "clave": "2222",
+        "mail": "pedro@gmail.com",
+        "id": 4501,
+        "fechaRegistro": {
+            "date": "2022-09-22 03:53:28.000000",
+            "timezone_type": 3,
+            "timezone": "Europe\/Berlin"
+        }
+    }
+]
