@@ -3,10 +3,7 @@
 include_once "ClaseUsuario.php";
 include_once "AccesoDatos.php";
 
-
-
 $listaUsuarios = Usuario::TraerListaUsuarios();
-
 
 try
 {

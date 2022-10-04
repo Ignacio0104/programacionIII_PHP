@@ -161,7 +161,7 @@ class Usuario
     {
         foreach ($listaDeUsuarios as $usuario)
         {
-            if(strcmp($usuario->getNombre(),$usuarioIngresado)==0)
+            if(strcmp($usuario->getMail(),$usuarioIngresado)==0)
             {
                 if(strcmp($usuario->getClave(),$claveIngresada)==0)
                 {

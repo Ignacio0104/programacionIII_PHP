@@ -1,0 +1,30 @@
+[
+    {
+        "codigoBarras": 1000,
+        "nombre": "Manzana",
+        "tipo": "Fruta",
+        "stock": 26,
+        "precio": 50.5
+    },
+    {
+        "codigoBarras": 1001,
+        "nombre": "Pera",
+        "tipo": "Fruta",
+        "stock": 10,
+        "precio": 30
+    },
+    {
+        "codigoBarras": 1002,
+        "nombre": "Cerveza",
+        "tipo": "Lata",
+        "stock": 5,
+        "precio": 150
+    },
+    {
+        "codigoBarras": 1003,
+        "nombre": "Papas Fritas",
+        "tipo": "Envasado",
+        "stock": 20,
+        "precio": 200
+    }
+]
