@@ -1,0 +1,23 @@
+[
+    {
+        "id": 1000,
+        "sabor": "muzzarella",
+        "precio": 45.5,
+        "tipo": "molde",
+        "cantidad": 45
+    },
+    {
+        "id": 1001,
+        "sabor": "Fugazzeta",
+        "precio": 45.5,
+        "tipo": "pierda",
+        "cantidad": 12
+    },
+    {
+        "id": 1002,
+        "sabor": "Faina",
+        "precio": 45.5,
+        "tipo": "molde",
+        "cantidad": 12
+    }
+]
