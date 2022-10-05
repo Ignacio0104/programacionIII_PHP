@@ -9,8 +9,8 @@
     {
         "id": 1002,
         "sabor": "Fugazzeta",
-        "precio": 50,
+        "precio": 25.5,
         "tipo": "piedra",
-        "cantidad": 20
+        "cantidad": 220
     }
 ]

@@ -1,5 +1,10 @@
 <?php
 
+include_once "PizzaCarga.php";
+
+$listaDePizzas = LeerPizzasListaJSON("Pizza.json");
+echo BuscarPizzaPOST($listaDePizzas,$_POST["sabor"],$_POST["tipo"]);
+
 function BuscarPizzaPOST($listaDePizzas,$sabor,$tipo)
 {
     if(count($listaDePizzas)>0){
