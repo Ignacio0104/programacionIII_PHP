@@ -15,7 +15,7 @@ if($listaDeJSON!=null &&count($listaDeJSON)>0)
     }
 }
 
-if(BuscarPizza($listaDePizzas,$_GET["sabor"],$_GET["tipo"])==null)
+if(Operaciones::BuscarPizza($listaDePizzas,$_GET["sabor"],$_GET["tipo"])==null)
 {
     echo "La pizza no existe y la vamos a crear\n";
     $pizzaNueva = CrearPizza($listaDePizzas,$_GET["sabor"],$_GET["precio"],$_GET["tipo"],$_GET["cantidad"]);
@@ -42,19 +42,7 @@ function CrearPizza($listaDePizzas,$sabor,$precio,$tipo,$cantidad)
     return $pizzaAuxiliar;
 }
 
-function BuscarPizza($listaDePizzas,$sabor,$tipo)
-{
-    if(count($listaDePizzas)>0){
-        foreach ($listaDePizzas as $pizza)
-        {
-            if((strcmp($pizza->sabor,$sabor)==0)&&(strcmp($pizza->tipo,$tipo)==0))
-            {
-                return $pizza;
-            }
-        }
-    }
-    return null;
-}
+
 
 function ActualizarPizza ($pizza,$precio,$stock)
 {

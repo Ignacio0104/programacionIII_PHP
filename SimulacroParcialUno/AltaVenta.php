@@ -2,6 +2,7 @@
 include_once "Venta.php";
 include_once "Pizza.php";
 include_once "ManejoJSON.php";
+include_once "Operaciones.php";
 
 $listaDeJSON = ManejoJSON::LeerListaJSON("Pizza.json");
 $listaDePizzas=array();
@@ -29,27 +30,30 @@ if($listaDeJSON!=null &&count($listaDeJSON)>0)
 $ventaCreada = CrearVenta($listaDeVentas,$listaDePizzas,$_POST["mailUsuario"],$_POST["sabor"],
 $_POST["tipo"],$_POST["cantidad"],$_POST["numeroPedido"]);
 if($ventaCreada!=null){
-    echo "Venta creada con exito\n";
-    if($listaDeVentas == null)
+    if($ventaCreada->GuardarImagen())
     {
-        $listaDeVentas= array();
+        echo "Venta creada con exito\n";
+        if($listaDeVentas == null)
+        {
+            $listaDeVentas= array();
+        }
+        $pizzaElegida = Operaciones::BuscarPizza($listaDePizzas,$_POST["sabor"],$_POST["tipo"]);
+        if($pizzaElegida !=null)
+        {
+            $pizzaElegida->cantidad = $pizzaElegida->cantidad - $_POST["cantidad"];
+        }
+        array_push($listaDeVentas,$ventaCreada);
+        ManejoJSON::GuardarListaJSON($listaDeVentas,"Ventas.json");
+        ManejoJSON::GuardarListaJSON($listaDePizzas,"Pizza.json");
     }
-    $pizzaElegida = BuscarPizza($listaDePizzas,$_POST["sabor"],$_POST["tipo"]);
-    if($pizzaElegida !=null)
-    {
-        $pizzaElegida->cantidad = $pizzaElegida->cantidad - $_POST["cantidad"];
-    }
-    array_push($listaDeVentas,$ventaCreada);
-    ManejoJSON::GuardarListaJSON($listaDeVentas,"Ventas.json");
-    ManejoJSON::GuardarListaJSON($listaDePizzas,"Pizza.json");
-    
+  
 }else{
-    echo "No se pudo crear la venta\n";
+    echo "No se pudo crear la venta. Revisar los datos\n";
 }
 
 function CrearVenta($listaDeVentas,$listaDePizza,$mailUsuario,$sabor,$tipo,$cantidad, $numeroDePedido)
 {
-    $pizzaPedida = BuscarPizza($listaDePizza,$sabor,$tipo);
+    $pizzaPedida =Operaciones::BuscarPizza($listaDePizza,$sabor,$tipo);
     if($pizzaPedida != null)
     {
         $ventaNueva = new Venta(Operaciones::ConseguirIDMaximo($listaDeVentas,0)+1,$mailUsuario,$sabor,$tipo,$cantidad,$numeroDePedido);

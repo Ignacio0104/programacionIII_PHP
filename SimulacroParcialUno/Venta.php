@@ -26,6 +26,19 @@ class Venta{
         $this->numeroDePedido = $numeroDePedido;
     }
 
+    public function GuardarImagen(){
+        $nombreMailFiltrado = explode("@",$this->mailUsuario);       
+        $nombreDeArchivo = "$this->tipo - $this->sabor - $nombreMailFiltrado[0]@";
+        $destino = "ImagenesDeLaVenta/" . $nombreDeArchivo . ".jpg";
+        $tmpName = $_FILES["imagen"]["tmp_name"];
+        if (move_uploaded_file($tmpName, $destino)) {
+            echo "La foto se guardó correctamente\n";
+            return true;
+        } else {
+           echo "La foto no pudo gurdarse";
+           return false;
+        }
+    }
     public function Mostrar(){
         echo "$this->numeroDePedido,$this->id,$this->mailUsuario,$this->sabor, $this->tipo,$this->cantidad,$this->fechaDePedido";
     }
