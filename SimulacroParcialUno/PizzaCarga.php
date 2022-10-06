@@ -1,9 +1,18 @@
 <?php
 include_once "Pizza.php";
+include_once "ManejoJSON.php";
+include_once "Operaciones.php";
 
-$listaDePizzas = LeerPizzasListaJSON("Pizza.json");
-if($listaDePizzas == null){
-    $listaDePizzas = array();
+$listaDeJSON = ManejoJSON::LeerListaJSON("Pizza.json");
+$listaDePizzas=array();
+
+if($listaDeJSON!=null &&count($listaDeJSON)>0)
+{
+    foreach ($listaDeJSON as $pizzaJson) {
+        $pizzaAuxiliar = new Pizza($pizzaJson["id"],$pizzaJson["sabor"],
+        $pizzaJson["precio"],$pizzaJson["tipo"],$pizzaJson["cantidad"]);
+        array_push($listaDePizzas,$pizzaAuxiliar);
+    }
 }
 
 if(BuscarPizza($listaDePizzas,$_GET["sabor"],$_GET["tipo"])==null)
@@ -23,55 +32,13 @@ foreach ($listaDePizzas as $pizza) {
     $pizza->Mostrar();
     echo "\n";
 }
-GuardarListaPizzasJSON($listaDePizzas);
 
-function GuardarListaPizzasJSON ($arrayPizzas)
-{
-    $archivo = fopen("Pizza.json","w");
-    $confirmacion = false; 
-    
-    if(fwrite($archivo,json_encode($arrayPizzas,JSON_PRETTY_PRINT). PHP_EOL)!=false)
-    {
-        $confirmacion = true;
-    }  
-    fclose($archivo);
-    return $confirmacion;
-}
-
-function LeerPizzasListaJSON($nombreArchivo)
-{
-    if(file_exists($nombreArchivo))
-    {
-        $archivo = fopen($nombreArchivo,"r");
-        $arrayAtributos = array();
-        $arrayDePizzas = array();
-
-            if(filesize($nombreArchivo)>0)
-            {
-                $json = fread($archivo,filesize($nombreArchivo));
-                $arrayAtributos=json_decode($json,true);
-                    
-                if(!empty($arrayAtributos))
-                {
-                    foreach ($arrayAtributos as $pizzaJson)
-                    {
-                        $pizzaAuxiliar = new Pizza($pizzaJson["id"],$pizzaJson["sabor"],
-                        $pizzaJson["precio"],$pizzaJson["tipo"],$pizzaJson["cantidad"]);
-                        array_push($arrayDePizzas,$pizzaAuxiliar);
-                    }
-                }
-                fclose($archivo);  
-                return $arrayDePizzas;  
-            }
-
-    }else{
-        echo "El archivo no existe\n";
-    }   
-}
+/*--------------------------------------------------------*/
+ManejoJSON::GuardarListaJSON($listaDePizzas,"Pizza.json");
 
 function CrearPizza($listaDePizzas,$sabor,$precio,$tipo,$cantidad)
 {
-    $pizzaAuxiliar = new Pizza(ConseguirUltimoID($listaDePizzas)+1,$sabor,$precio,$tipo,$cantidad);
+    $pizzaAuxiliar = new Pizza(Operaciones::ConseguirIDMaximo($listaDePizzas,1000)+1,$sabor,$precio,$tipo,$cantidad);
     return $pizzaAuxiliar;
 }
 
@@ -95,21 +62,6 @@ function ActualizarPizza ($pizza,$precio,$stock)
     $pizza->cantidad = $pizza->cantidad + $stock;
 }
 
-function ConseguirUltimoID($listaDePizzas)
-{
-    $idMaxima = 1000;
-    if(count($listaDePizzas)>0)
-    {
-        foreach ($listaDePizzas as $pizza)
-        {
-            if($pizza->id>$idMaxima)
-            {
-                $idMaxima =$pizza->id;
-            }
-        }
-    }
-    return $idMaxima;
-}
 
 
 ?>

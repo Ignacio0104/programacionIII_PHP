@@ -12,21 +12,6 @@ switch ($_SERVER["REQUEST_METHOD"]){
                 break;
             case "ventas":
                 include_once "AltaVenta.php";
-                $listaDeVentas = LeerVentasListaJSON("Ventas.json");
-                $listaDePizzas = LeerPizzasListaJSON("Pizza.json");
-                $ventaCreada = CrearVenta($listaDeVentas,$listaDePizzas,$_POST["mailUsuario"],$_POST["sabor"],
-                $_POST["tipo"],$_POST["cantidad"],$_POST["numeroPedido"]);
-                if($ventaCreada!=null){
-                    echo "Venta creada con exito\n";
-                    if($listaDeVentas == null)
-                    {
-                        $listaDeVentas= array();
-                    }
-                    array_push($listaDeVentas,$ventaCreada);
-                    GuardarListaVentasJSON($listaDeVentas);
-                }else{
-                    echo "No se pudo crear la venta\n";
-                }
                 break;
         }
         break;

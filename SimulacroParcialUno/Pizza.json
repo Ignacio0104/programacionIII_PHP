@@ -1,16 +1,16 @@
 [
     {
         "id": 1001,
-        "sabor": "Muzzarella",
-        "precio": 45.5,
-        "tipo": "molde",
-        "cantidad": 60
-    },
-    {
-        "id": 1002,
         "sabor": "Fugazzeta",
         "precio": 25.5,
         "tipo": "piedra",
-        "cantidad": 220
+        "cantidad": 100
+    },
+    {
+        "id": 1002,
+        "sabor": "Muzzarella",
+        "precio": 25.5,
+        "tipo": "molde",
+        "cantidad": 10
     }
 ]

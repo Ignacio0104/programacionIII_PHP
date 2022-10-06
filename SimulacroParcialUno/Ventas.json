@@ -1,0 +1,38 @@
+[
+    {
+        "numeroDePedido": 9002,
+        "id": 1,
+        "mailUsuario": "nacho@gmail.com",
+        "sabor": "Muzzarella",
+        "tipo": "molde",
+        "cantidad": 2,
+        "fechaDePedido": "05-10-22"
+    },
+    {
+        "numeroDePedido": 9002,
+        "id": 2,
+        "mailUsuario": "nacho@gmail.com",
+        "sabor": "Muzzarella",
+        "tipo": "molde",
+        "cantidad": 2,
+        "fechaDePedido": "05-10-22"
+    },
+    {
+        "numeroDePedido": 9002,
+        "id": 3,
+        "mailUsuario": "nacho@gmail.com",
+        "sabor": "Muzzarella",
+        "tipo": "molde",
+        "cantidad": 2,
+        "fechaDePedido": "05-10-22"
+    },
+    {
+        "numeroDePedido": 9002,
+        "id": 4,
+        "mailUsuario": "nacho@gmail.com",
+        "sabor": "Muzzarella",
+        "tipo": "molde",
+        "cantidad": 2,
+        "fechaDePedido": "05-10-22"
+    }
+]

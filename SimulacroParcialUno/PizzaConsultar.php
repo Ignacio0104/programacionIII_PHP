@@ -1,9 +1,26 @@
 <?php
 
-include_once "PizzaCarga.php";
+include_once "Pizza.php";
+include_once "ManejoJSON.php";
 
-$listaDePizzas = LeerPizzasListaJSON("Pizza.json");
-echo BuscarPizzaPOST($listaDePizzas,$_POST["sabor"],$_POST["tipo"]);
+$listaDeJSON = ManejoJSON::LeerListaJSON("Pizza.json");
+$listaDePizzas=array();
+
+if($listaDeJSON!=null &&count($listaDeJSON)>0)
+{
+    foreach ($listaDeJSON as $pizzaJson) {
+        $pizzaAuxiliar = new Pizza($pizzaJson["id"],$pizzaJson["sabor"],
+        $pizzaJson["precio"],$pizzaJson["tipo"],$pizzaJson["cantidad"]);
+        array_push($listaDePizzas,$pizzaAuxiliar);
+    }
+}
+
+if(BuscarPizzaPOST($listaDePizzas,$_POST["sabor"],$_POST["tipo"]))
+{
+    echo "Si hay!";
+}else{
+    echo "No existe el sabor o el tipo";
+}
 
 function BuscarPizzaPOST($listaDePizzas,$sabor,$tipo)
 {
@@ -12,10 +29,10 @@ function BuscarPizzaPOST($listaDePizzas,$sabor,$tipo)
         {
             if((strcmp($pizza->sabor,$sabor)==0)&&(strcmp($pizza->tipo,$tipo)==0))
             {
-                return "Si hay!";
+                return true;
             }
         }
     }
-    return "No existe el tipo o el sabor";
+    return false;
 }
 ?>

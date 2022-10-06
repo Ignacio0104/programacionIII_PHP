@@ -1,75 +1,61 @@
 <?php
 include_once "Venta.php";
-include_once "PizzaCarga.php";
+include_once "Pizza.php";
+include_once "ManejoJSON.php";
+
+$listaDeJSON = ManejoJSON::LeerListaJSON("Pizza.json");
+$listaDePizzas=array();
+$listaDeVentas = array();
+if($listaDeJSON!=null &&count($listaDeJSON)>0)
+{
+    foreach ($listaDeJSON as $pizzaJson) {
+        $pizzaAuxiliar = new Pizza($pizzaJson["id"],$pizzaJson["sabor"],
+        $pizzaJson["precio"],$pizzaJson["tipo"],$pizzaJson["cantidad"]);
+        array_push($listaDePizzas,$pizzaAuxiliar);
+    }
+}
+$listaDeJSON = ManejoJSON::LeerListaJSON("Ventas.json");
+if($listaDeJSON!=null &&count($listaDeJSON)>0)
+{
+    foreach ($listaDeJSON as $ventaJson)
+    {
+        $ventaAuxiliar = new Venta ($ventaJson["id"],$ventaJson["mailUsuario"],
+        $ventaJson["sabor"],$ventaJson["tipo"],$ventaJson["cantidad"],$ventaJson["numeroDePedido"],
+    $ventaJson["fechaDePedido"]);
+        array_push($listaDeVentas,$ventaAuxiliar);
+    }
+}
+
+$ventaCreada = CrearVenta($listaDeVentas,$listaDePizzas,$_POST["mailUsuario"],$_POST["sabor"],
+$_POST["tipo"],$_POST["cantidad"],$_POST["numeroPedido"]);
+if($ventaCreada!=null){
+    echo "Venta creada con exito\n";
+    if($listaDeVentas == null)
+    {
+        $listaDeVentas= array();
+    }
+    $pizzaElegida = BuscarPizza($listaDePizzas,$_POST["sabor"],$_POST["tipo"]);
+    if($pizzaElegida !=null)
+    {
+        $pizzaElegida->cantidad = $pizzaElegida->cantidad - $_POST["cantidad"];
+    }
+    array_push($listaDeVentas,$ventaCreada);
+    ManejoJSON::GuardarListaJSON($listaDeVentas,"Ventas.json");
+    ManejoJSON::GuardarListaJSON($listaDePizzas,"Pizza.json");
+    
+}else{
+    echo "No se pudo crear la venta\n";
+}
 
 function CrearVenta($listaDeVentas,$listaDePizza,$mailUsuario,$sabor,$tipo,$cantidad, $numeroDePedido)
 {
     $pizzaPedida = BuscarPizza($listaDePizza,$sabor,$tipo);
     if($pizzaPedida != null)
     {
-        $ventaNueva = new Venta(ConseguirUltimoIDVenta($listaDeVentas)+1,$mailUsuario,$sabor,$tipo,$cantidad,$numeroDePedido);
+        $ventaNueva = new Venta(Operaciones::ConseguirIDMaximo($listaDeVentas,0)+1,$mailUsuario,$sabor,$tipo,$cantidad,$numeroDePedido);
         return $ventaNueva;
     }
     return null;
-}
-
-function GuardarListaVentasJSON ($arrayVentas)
-{
-    $archivo = fopen("Ventas.json","w");
-    $confirmacion = false; 
-    
-    if(fwrite($archivo,json_encode($arrayVentas,JSON_PRETTY_PRINT). PHP_EOL)!=false)
-    {
-        $confirmacion = true;
-    }  
-    fclose($archivo);
-    return $confirmacion;
-}
-
-
-function LeerVentasListaJSON($nombreArchivo)
-{
-    if(file_exists($nombreArchivo)){
-        $archivo = fopen($nombreArchivo,"r");
-        $arrayAtributos = array();
-        $arrayDeVentas = array();
-    
-        if(filesize($nombreArchivo)>0){
-            $json = fread($archivo,filesize($nombreArchivo));
-            $arrayAtributos=json_decode($json,true);
-                
-            if(!empty($arrayAtributos))
-            {
-                foreach ($arrayAtributos as $ventaJson)
-                {
-                    $ventaAuxiliar = new Venta ($ventaJson["id"],$ventaJson["mailUsuario"],
-                    $ventaJson["sabor"],$ventaJson["tipo"],$ventaJson["cantidad"],$ventaJson["numeroDePedido"],
-                $ventaJson["fechaDePedido"]);
-                    array_push($arrayDeVentas,$ventaAuxiliar);
-                }
-            }
-            fclose($archivo);  
-            return $arrayDeVentas;  
-        }
-    }else{
-        echo "El archivo ventas no existe\n";
-    }
-}
-
-function ConseguirUltimoIDVenta($listaDeVentas)
-{
-    $idMaxima = 0;
-    if($listaDeVentas != null && count($listaDeVentas)>0)
-    {
-        foreach ($listaDeVentas as $venta)
-        {
-            if($venta->id>$idMaxima)
-            {
-                $idMaxima =$venta->id;
-            }
-        }
-    }
-    return $idMaxima;
 }
 
 ?>
