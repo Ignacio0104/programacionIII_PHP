@@ -23,6 +23,8 @@ switch ($_SERVER["REQUEST_METHOD"]){
     case "PUT":
         include_once "ModificarVenta.php";
         break;
+    case "DELETE":
+        include_once "BorrarVenta.php";
     /*case "GET":
         include_once "PizzaCarga.php";      
         break;*/

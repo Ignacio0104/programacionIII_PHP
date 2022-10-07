@@ -36,21 +36,12 @@
         "fechaDePedido": "22-10-07"
     },
     {
-        "numeroDePedido": 2566,
-        "id": 5,
-        "mailUsuario": "esteban@gmail.com",
-        "sabor": "Anana",
-        "tipo": "piedra",
-        "cantidad": 5,
-        "fechaDePedido": "22-10-05"
-    },
-    {
         "numeroDePedido": 2567,
-        "id": 6,
+        "id": 5,
         "mailUsuario": "james@gmail.com",
         "sabor": "Muzzarella",
         "tipo": "molde",
-        "cantidad": 4,
-        "fechaDePedido": "22-10-06"
+        "cantidad": 1,
+        "fechaDePedido": "22-10-07"
     }
 ]
