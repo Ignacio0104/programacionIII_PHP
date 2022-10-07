@@ -8,6 +8,8 @@ $listaDeJSON = ManejoJSON::LeerListaJSON("Pizza.json");
 $listaDePizzas=array();
 $listaDeVentas = array();
 $listaDeVentasPorFecha = array();
+$listaDeVentasPorUsuario=array();
+$listaDeVentasPorSabor =array();
 $cantidadPizzasVendidas;
 $fechaInicio=new DateTime($_POST["inicio"]);
 $fechaFinal = new DateTime($_POST["final"]);
@@ -37,15 +39,40 @@ if($listaDeJSON!=null &&count($listaDeJSON)>0)
             array_push($listaDeVentasPorFecha,$ventaAuxiliar);
         }
         array_push($listaDeVentas,$ventaAuxiliar);
+
+        if(strcmp($ventaAuxiliar->mailUsuario,$_POST["usuarioFiltro"])==0)
+        {
+            array_push($listaDeVentasPorUsuario,$ventaAuxiliar);
+        }
+
+        if(strcmp($ventaAuxiliar->sabor,$_POST["saborFiltro"])==0)
+        {
+            array_push($listaDeVentasPorSabor,$ventaAuxiliar);
+        }
     }
 }
 
 echo "Se vendieron $cantidadPizzasVendidas pizzas\n";
+
+echo "Ventas por fecha:\n";
 
 usort($listaDeVentasPorFecha,"Operaciones::CompararSabores");
 foreach ($listaDeVentasPorFecha as $item) {
    $item->Mostrar();
    echo "\n";
 }
+
+echo "Ventas por usuario: \n";
+
+foreach ($listaDeVentasPorUsuario as $item) {
+    $item->Mostrar();
+    echo "\n";
+ }
+
+ echo "Ventas por sabor: \n";
+ foreach ($listaDeVentasPorSabor as $item) {
+    $item->Mostrar();
+    echo "\n";
+ }
 
 ?>

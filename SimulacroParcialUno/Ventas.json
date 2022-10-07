@@ -1,7 +1,7 @@
 [
     {
-        "numeroDePedido": 9008,
-        "id": 5,
+        "numeroDePedido": 2563,
+        "id": 1,
         "mailUsuario": "nacho@gmail.com",
         "sabor": "Muzzarella",
         "tipo": "molde",
@@ -9,48 +9,48 @@
         "fechaDePedido": "22-10-03"
     },
     {
-        "numeroDePedido": 2563,
+        "numeroDePedido": 2564,
+        "id": 2,
+        "mailUsuario": "nacho@gmail.com",
+        "sabor": "Fugazzeta",
+        "tipo": "piedra",
+        "cantidad": 1,
+        "fechaDePedido": "22-10-01"
+    },
+    {
+        "numeroDePedido": 2564,
+        "id": 3,
+        "mailUsuario": "pedro@gmail.com",
+        "sabor": "Fugazzeta",
+        "tipo": "piedra",
+        "cantidad": 1,
+        "fechaDePedido": "22-10-02"
+    },
+    {
+        "numeroDePedido": 2564,
+        "id": 4,
+        "mailUsuario": "esteban@gmail.com",
+        "sabor": "Fugazzeta",
+        "tipo": "piedra",
+        "cantidad": 1,
+        "fechaDePedido": "22-10-07"
+    },
+    {
+        "numeroDePedido": 2566,
+        "id": 5,
+        "mailUsuario": "esteban@gmail.com",
+        "sabor": "Muzzarella",
+        "tipo": "molde",
+        "cantidad": 3,
+        "fechaDePedido": "22-10-05"
+    },
+    {
+        "numeroDePedido": 2567,
         "id": 6,
-        "mailUsuario": "nacho@gmail.com",
+        "mailUsuario": "james@gmail.com",
         "sabor": "Muzzarella",
         "tipo": "molde",
-        "cantidad": 2,
-        "fechaDePedido": "22-10-04"
-    },
-    {
-        "numeroDePedido": 2563,
-        "id": 7,
-        "mailUsuario": "nacho@gmail.com",
-        "sabor": "Muzzarella",
-        "tipo": "molde",
-        "cantidad": 2,
-        "fechaDePedido": "22-10-05"
-    },
-    {
-        "numeroDePedido": 2563,
-        "id": 8,
-        "mailUsuario": "nacho@gmail.com",
-        "sabor": "Muzzarella",
-        "tipo": "molde",
-        "cantidad": 2,
-        "fechaDePedido": "22-10-05"
-    },
-    {
-        "numeroDePedido": 2563,
-        "id": 9,
-        "mailUsuario": "nacho@gmail.com",
-        "sabor": "Muzzarella",
-        "tipo": "molde",
-        "cantidad": 2,
-        "fechaDePedido": "22-10-07"
-    },
-    {
-        "numeroDePedido": 2563,
-        "id": 10,
-        "mailUsuario": "nacho@gmail.com",
-        "sabor": "Muzzarella",
-        "tipo": "molde",
-        "cantidad": 2,
-        "fechaDePedido": "22-10-07"
+        "cantidad": 4,
+        "fechaDePedido": "22-10-06"
     }
 ]

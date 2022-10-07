@@ -4,13 +4,13 @@
         "sabor": "Fugazzeta",
         "precio": 25.5,
         "tipo": "piedra",
-        "cantidad": 100
+        "cantidad": 97
     },
     {
         "id": 1002,
         "sabor": "Muzzarella",
         "precio": 25.5,
         "tipo": "molde",
-        "cantidad": -2
+        "cantidad": -11
     }
 ]
