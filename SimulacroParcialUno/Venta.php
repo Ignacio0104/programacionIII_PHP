@@ -18,7 +18,7 @@ class Venta{
         $this->tipo = $tipo;
         $this->cantidad = $cantidad;    
         if($fechaDePedido==""){
-            $fechaActual = new DateTime(date('d-m-y h:i:s'));
+            $fechaActual = new DateTime(date('y-m-d h:i:s'));
             $this->fechaDePedido = $fechaActual->format('y-m-d');
         }else{
             $this->fechaDePedido = $fechaDePedido;

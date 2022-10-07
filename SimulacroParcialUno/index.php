@@ -13,6 +13,9 @@ switch ($_SERVER["REQUEST_METHOD"]){
             case "ventas":
                 include_once "AltaVenta.php";
                 break;
+            case "reportes":
+                include_once "ConsultasVentas.php";
+                break;
         }
         break;
     case "GET":

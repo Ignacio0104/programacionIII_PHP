@@ -11,6 +11,6 @@
         "sabor": "Muzzarella",
         "precio": 25.5,
         "tipo": "molde",
-        "cantidad": 0
+        "cantidad": -2
     }
 ]

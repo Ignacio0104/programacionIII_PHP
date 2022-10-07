@@ -9,8 +9,9 @@ $listaDePizzas=array();
 $listaDeVentas = array();
 $listaDeVentasPorFecha = array();
 $cantidadPizzasVendidas;
-$fechaInicio=$_POST["inicio"];
-$fechaFinal = $_POST["final"];
+$fechaInicio=new DateTime($_POST["inicio"]);
+$fechaFinal = new DateTime($_POST["final"]);
+$cantidadPizzasVendidas = 0;
 if($listaDeJSON!=null &&count($listaDeJSON)>0)
 {
     foreach ($listaDeJSON as $pizzaJson) {
@@ -28,8 +29,10 @@ if($listaDeJSON!=null &&count($listaDeJSON)>0)
         $ventaJson["sabor"],$ventaJson["tipo"],$ventaJson["cantidad"],$ventaJson["numeroDePedido"],
     $ventaJson["fechaDePedido"]);
         $cantidadPizzasVendidas+=$ventaAuxiliar->cantidad;
-        if(DateTime::createFromFormat("y-m-d",$ventaAuxiliar->fechaDePedido)>DateTime::createFromFormat("y-m-d",$fechaInicio)
-        && DateTime::createFromFormat("y-m-d",$ventaAuxiliar->fechaDePedido)<DateTime::createFromFormat("y-m-d",$fechaFinal))
+
+        $fechaAuxiliar = new DateTime($ventaAuxiliar->fechaDePedido);
+
+        if($fechaInicio < $fechaAuxiliar && $fechaAuxiliar < $fechaFinal)
         {
             array_push($listaDeVentasPorFecha,$ventaAuxiliar);
         }
@@ -38,5 +41,11 @@ if($listaDeJSON!=null &&count($listaDeJSON)>0)
 }
 
 echo "Se vendieron $cantidadPizzasVendidas pizzas\n";
+
+usort($listaDeVentasPorFecha,"Operaciones::CompararSabores");
+foreach ($listaDeVentasPorFecha as $item) {
+   $item->Mostrar();
+   echo "\n";
+}
 
 ?>

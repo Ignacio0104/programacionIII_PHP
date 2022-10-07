@@ -31,6 +31,11 @@ class Operaciones{
         }
         return null;
     }
+
+    public static function CompararSabores($pizzaUno,$pizzaDos)
+    {
+        return strcmp($pizzaUno->sabor, $pizzaDos->sabor);
+    }
 }
 
 
