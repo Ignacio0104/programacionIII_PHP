@@ -17,6 +17,18 @@ class Pizza{
         $this->cantidad = $cantidad;
     }
 
+    public function GuardarImagen(){  
+        $nombreDeArchivo = "$this->tipo - $this->sabor";
+        $destino = "ImagenesDePizzas/" . $nombreDeArchivo . ".jpg";
+        $tmpName = $_FILES["imagen"]["tmp_name"];
+        if (move_uploaded_file($tmpName, $destino)) {
+            echo "La foto se guardó correctamente\n";
+            return true;
+        } else {
+           echo "La foto no pudo gurdarse";
+           return false;
+        }
+    }
     public function Mostrar(){
         echo "$this->id,$this->sabor,$this->precio,$this->tipo, $this->cantidad";
     }

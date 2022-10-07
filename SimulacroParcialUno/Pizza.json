@@ -11,6 +11,13 @@
         "sabor": "Muzzarella",
         "precio": 25.5,
         "tipo": "molde",
-        "cantidad": -11
+        "cantidad": 19
+    },
+    {
+        "id": 1003,
+        "sabor": "Napolitana",
+        "precio": 100,
+        "tipo": "molde",
+        "cantidad": 4
     }
 ]

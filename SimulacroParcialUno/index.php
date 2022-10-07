@@ -16,11 +16,13 @@ switch ($_SERVER["REQUEST_METHOD"]){
             case "reportes":
                 include_once "ConsultasVentas.php";
                 break;
+            case "altaPizzas":
+                include_once "PizzaCarga.php";
         }
         break;
-    case "GET":
+    /*case "GET":
         include_once "PizzaCarga.php";      
-        break;
+        break;*/
 }
 
 

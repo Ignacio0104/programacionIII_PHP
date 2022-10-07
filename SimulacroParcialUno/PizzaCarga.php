@@ -15,10 +15,10 @@ if($listaDeJSON!=null &&count($listaDeJSON)>0)
     }
 }
 
-if(Operaciones::BuscarPizza($listaDePizzas,$_GET["sabor"],$_GET["tipo"])==null)
+if(Operaciones::BuscarPizza($listaDePizzas,$_POST["sabor"],$_POST["tipo"])==null)
 {
     echo "La pizza no existe y la vamos a crear\n";
-    $pizzaNueva = CrearPizza($listaDePizzas,$_GET["sabor"],$_GET["precio"],$_GET["tipo"],$_GET["cantidad"]);
+    $pizzaNueva = CrearPizza($listaDePizzas,$_POST["sabor"],$_POST["precio"],$_POST["tipo"],$_POST["cantidad"]);
     if($pizzaNueva==null){
         echo "No se pudo cargar la pizza\n";
     }else{
@@ -26,7 +26,7 @@ if(Operaciones::BuscarPizza($listaDePizzas,$_GET["sabor"],$_GET["tipo"])==null)
     }        
 }else{
     echo "La pizza existe, actualizamos los datos\n";
-    ActualizarPizza(BuscarPizza($listaDePizzas,$_GET["sabor"],$_GET["tipo"]),$_GET["precio"],$_GET["cantidad"]);
+    ActualizarPizza(Operaciones::BuscarPizza($listaDePizzas,$_POST["sabor"],$_POST["tipo"]),$_POST["precio"],$_POST["cantidad"]);
 }
 foreach ($listaDePizzas as $pizza) {
     $pizza->Mostrar();
@@ -39,7 +39,11 @@ ManejoJSON::GuardarListaJSON($listaDePizzas,"Pizza.json");
 function CrearPizza($listaDePizzas,$sabor,$precio,$tipo,$cantidad)
 {
     $pizzaAuxiliar = new Pizza(Operaciones::ConseguirIDMaximo($listaDePizzas,1000)+1,$sabor,$precio,$tipo,$cantidad);
-    return $pizzaAuxiliar;
+    if($pizzaAuxiliar->GuardarImagen())
+    {
+        return $pizzaAuxiliar;
+    }
+   return null;
 }
 
 
