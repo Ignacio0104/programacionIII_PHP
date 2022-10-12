@@ -1,0 +1,75 @@
+{
+	"info": {
+		"_postman_id": "713c6dd8-1145-410b-8cfd-5d38a015d309",
+		"name": "Ejercicios Programacion III",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "19502785"
+	},
+	"item": [
+		{
+			"name": "Request Parcial UNO Programacion III",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "sabor",
+							"value": "limon",
+							"type": "text"
+						},
+						{
+							"key": "precio",
+							"value": "30",
+							"type": "text"
+						},
+						{
+							"key": "tipo",
+							"value": "1",
+							"type": "text"
+						},
+						{
+							"key": "cantidad",
+							"value": "1",
+							"type": "text"
+						},
+						{
+							"key": "accion",
+							"value": "venta",
+							"type": "text"
+						},
+						{
+							"key": "imagen",
+							"type": "file",
+							"src": "/C:/Users/Nacho/Downloads/1614352808020.jpg"
+						},
+						{
+							"key": "mailUsuario",
+							"value": "ignacio@gmail.com",
+							"type": "text"
+						},
+						{
+							"key": "numeroPedido",
+							"value": "5002",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://localhost/ProgramacionLaboIII/PRIMERPARCIAL-PROGRAMACION-III/index.php",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"path": [
+						"ProgramacionLaboIII",
+						"PRIMERPARCIAL-PROGRAMACION-III",
+						"index.php"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

@@ -1,0 +1,61 @@
+{
+	"info": {
+		"_postman_id": "713c6dd8-1145-410b-8cfd-5d38a015d309",
+		"name": "Ejercicios Programacion III",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "19502785"
+	},
+	"item": [
+		{
+			"name": "Request Parcial UNO Programacion III",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "    {\r\n        \"numeroDePedido\": 5001,\r\n        \"id\": 2,\r\n        \"mailUsuario\": \"estban@gmail.com\",\r\n        \"sabor\": \"limon\",\r\n        \"tipo\": \"2\",\r\n        \"cantidad\": 2,\r\n        \"fechaDePedido\": \"22-10-19\"\r\n    }",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost/ProgramacionLaboIII/PRIMERPARCIAL-PROGRAMACION-III/index.php?fecha=2022-10-12&inicio=2022-10-06&final=2022-10-13&usuarioFiltro=estban@gmail.com&saborFiltro=limon",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"path": [
+						"ProgramacionLaboIII",
+						"PRIMERPARCIAL-PROGRAMACION-III",
+						"index.php"
+					],
+					"query": [
+						{
+							"key": "fecha",
+							"value": "2022-10-12"
+						},
+						{
+							"key": "inicio",
+							"value": "2022-10-06"
+						},
+						{
+							"key": "final",
+							"value": "2022-10-13"
+						},
+						{
+							"key": "usuarioFiltro",
+							"value": "estban@gmail.com"
+						},
+						{
+							"key": "saborFiltro",
+							"value": "limon"
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

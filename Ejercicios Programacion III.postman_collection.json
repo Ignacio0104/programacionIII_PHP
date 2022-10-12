@@ -1,0 +1,21 @@
+{
+	"info": {
+		"_postman_id": "713c6dd8-1145-410b-8cfd-5d38a015d309",
+		"name": "Ejercicios Programacion III",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "19502785"
+	},
+	"item": [
+		{
+			"name": "Request Parcial UNO Programacion III",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": ""
+				}
+			},
+			"response": []
+		}
+	]
+}

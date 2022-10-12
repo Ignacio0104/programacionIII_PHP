@@ -1,0 +1,11 @@
+[
+    {
+        "numeroDePedido": 5002,
+        "id": 3,
+        "mailUsuario": "pedro@gmail.com",
+        "sabor": "limon",
+        "tipo": "1",
+        "cantidad": 1,
+        "fechaDePedido": "22-10-12"
+    }
+]

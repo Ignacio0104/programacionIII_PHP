@@ -1,0 +1,16 @@
+[
+    {
+        "sabor": "vainilla",
+        "precio": 30,
+        "tipo": "crema",
+        "stock": 12,
+        "id": 1001
+    },
+    {
+        "sabor": "limon",
+        "precio": 30,
+        "tipo": "crema",
+        "stock": 0,
+        "id": 1002
+    }
+]
