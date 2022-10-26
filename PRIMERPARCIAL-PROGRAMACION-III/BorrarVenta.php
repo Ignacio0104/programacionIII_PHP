@@ -23,10 +23,13 @@ for ($i=0; $i < count($listaDeVentas); $i++) {
     if(strcmp($listaDeVentas[$i]->numeroDePedido,$datos["numeroDePedido"])==0){
         $listaDeVentas[$i]->estaBorrada = true;
         MoverFoto($listaDeVentas[$i]);
-        array_push($listDeDevoluciones,$listaDeVentas[$i]);
         break;
     }
 }
+
+ManejoJSON::GuardarListaJSON($listaDeVentas,"Ventas.json");
+
+
 
 function MoverFoto($venta){
     $nombreMailFiltrado = explode("@",$venta->mailUsuario);       
@@ -41,5 +44,4 @@ function MoverFoto($venta){
     rename($antiguaCarpeta.$nombreDeArchivo.".jpg", $nuevaCarpeta."imagenMovida.jpg");
 }
 
-ManejoJSON::GuardarListaJSON($listaDeVentas,"Ventas.json");
 ?>

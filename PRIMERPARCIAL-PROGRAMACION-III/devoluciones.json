@@ -1,11 +1,11 @@
 [
     {
-        "numeroDePedido": 5002,
-        "id": 3,
-        "mailUsuario": "pedro@gmail.com",
-        "sabor": "limon",
-        "tipo": "1",
-        "cantidad": 1,
+        "numeroDePedido": 5010,
+        "id": 10,
+        "mailUsuario": "pablito@gmail.com",
+        "sabor": "melon",
+        "tipo": "0",
+        "cantidad": 20,
         "fechaDePedido": "22-10-12"
     }
 ]

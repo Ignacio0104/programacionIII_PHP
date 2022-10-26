@@ -59,10 +59,11 @@ if($ventaCreada!=null){
         if($heladoElegido !=null)
         {
             $cuponUtilizado = Operaciones::BuscarCupon($listadDeCupones,$_POST["cuponDescuento"]);
-            if($cuponUtilizado !=null)
+            if($cuponUtilizado !=null &&$cuponUtilizado->usado == false)
             {
                 $cuponUtilizado->usado = true;
                 echo "Cupon utilizado";
+            }
                 $stockActualizado = $heladoElegido->stock - $_POST["cantidad"];
                 if($stockActualizado>=0)
                 {
@@ -76,7 +77,7 @@ if($ventaCreada!=null){
                     echo "No hay más disponibilidad";
                 }
             }
-            }
+            
 
     }
   }else{

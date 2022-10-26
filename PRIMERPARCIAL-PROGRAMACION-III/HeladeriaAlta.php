@@ -44,8 +44,8 @@ ManejoJSON::GuardarListaJSON($listaDeHelados,"heladeria.json");
 
 function CrearHelado($listaDeHelados,$sabor,$precio,$tipo,$cantidad)
 {
-    if($tipo>0 && $tipo<3)
-    {
+    if($tipo>=0 && $tipo<3)
+    {    
         $heladoAuxiliar = new Helado(Operaciones::ConseguirIDMaximo($listaDeHelados,1000)+1,$sabor,$precio,$tipo,$cantidad);
         if($heladoAuxiliar->GuardarImagen())
         {

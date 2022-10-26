@@ -10,7 +10,21 @@
         "sabor": "limon",
         "precio": 30,
         "tipo": "crema",
-        "stock": 0,
+        "stock": 5,
         "id": 1002
+    },
+    {
+        "sabor": "melon",
+        "precio": 150,
+        "tipo": "agua",
+        "stock": 13,
+        "id": 1003
+    },
+    {
+        "sabor": "dulce de leche",
+        "precio": 150,
+        "tipo": "agua",
+        "stock": 1,
+        "id": 1004
     }
 ]

@@ -30,9 +30,9 @@
         "numeroDePedido": 5004,
         "id": 4,
         "mailUsuario": "lucia@gmail.com",
-        "sabor": "limon",
-        "tipo": "1",
-        "cantidad": 1,
+        "sabor": "manzana",
+        "tipo": "0",
+        "cantidad": 100,
         "fechaDePedido": "22-10-12"
     },
     {
@@ -79,5 +79,60 @@
         "tipo": "1",
         "cantidad": 1,
         "fechaDePedido": "22-10-12"
+    },
+    {
+        "numeroDePedido": 5010,
+        "id": 10,
+        "mailUsuario": "pablito@gmail.com",
+        "sabor": "melon",
+        "tipo": "0",
+        "cantidad": 20,
+        "fechaDePedido": "22-10-12"
+    },
+    {
+        "numeroDePedido": 5010,
+        "id": 11,
+        "mailUsuario": "pablito@gmail.com",
+        "sabor": "melon",
+        "tipo": "0",
+        "cantidad": 1,
+        "fechaDePedido": "22-10-12"
+    },
+    {
+        "numeroDePedido": 5010,
+        "id": 12,
+        "mailUsuario": "pablito@gmail.com",
+        "sabor": "melon",
+        "tipo": "0",
+        "cantidad": 1,
+        "fechaDePedido": "22-10-12"
+    },
+    {
+        "numeroDePedido": 5010,
+        "id": 13,
+        "mailUsuario": "pablito@gmail.com",
+        "sabor": "melon",
+        "tipo": "0",
+        "cantidad": 1,
+        "fechaDePedido": "22-10-12"
+    },
+    {
+        "numeroDePedido": 5010,
+        "id": 14,
+        "mailUsuario": "pablito@gmail.com",
+        "sabor": "dulce de leche",
+        "tipo": "0",
+        "cantidad": 1,
+        "fechaDePedido": "22-10-12"
+    },
+    {
+        "numeroDePedido": 5011,
+        "id": 15,
+        "mailUsuario": "pablito@gmail.com",
+        "sabor": "dulce de leche",
+        "tipo": "0",
+        "cantidad": 1,
+        "fechaDePedido": "22-10-12",
+        "estaBorrada": true
     }
 ]
