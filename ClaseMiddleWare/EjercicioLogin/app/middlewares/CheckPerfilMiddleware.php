@@ -15,10 +15,10 @@ class CheckPerfilMiddleware{
         if($data->perfil=="administrador")
         {
           echo "El usuario es admin";
+          $response= $handler->handle($request);
         }else{
-          echo "El usuario no es admin";
+          echo " El usuario no es admin. No puede realizar esta acción";
         }
-        $response= $handler->handle($request);
        
       } catch (Exception $e) {
         $response->getBody()->write(json_encode(array('error - Token invalido' => $e->getMessage())));
