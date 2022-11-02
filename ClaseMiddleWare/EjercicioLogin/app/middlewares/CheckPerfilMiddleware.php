@@ -12,7 +12,7 @@ class CheckPerfilMiddleware{
        $response= new Response();
        try {
         $data = AutentificadorJWT::ObtenerData($token);
-        if($data->perfil=="administrador")
+        if($data->perfil_usuario=="admin")
         {
           echo "El usuario es admin";
           $response= $handler->handle($request);

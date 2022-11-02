@@ -8,12 +8,12 @@ class AutentificadorController extends AutentificadorJWT
     {
         $parametros = $request->getParsedBody();
         $usuarioBaseDeDatos=Usuario::obtenerUsuario($parametros["usuario"]);
-
         if($usuarioBaseDeDatos !=null)
         {
             if(password_verify($parametros["clave"],$usuarioBaseDeDatos->clave))
             {
-                $datos = array('usuario' => $parametros["usuario"], 'clave' => $parametros["clave"], 'perfil' => $parametros["perfil"]);
+                $datos = array('usuario' => $usuarioBaseDeDatos->usuario, 'clave' => $usuarioBaseDeDatos->clave
+                ,"perfil_usuario"=> $usuarioBaseDeDatos->perfil_usuario);
                 $token = AutentificadorJWT::CrearToken($datos);
                 $payload = json_encode(array('jwt' => $token));
                 $response->getBody()->write($payload);
