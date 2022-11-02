@@ -11,11 +11,18 @@ class LoginController extends Usuario
         $parametros = $request->getParsedBody();
         $usuarioBaseDeDatos=Usuario::obtenerUsuario($parametros["usuario"]);
 
-        if(password_verify($parametros["clave"],$usuarioBaseDeDatos->clave))
+       /* if(password_verify($parametros["clave"],$usuarioBaseDeDatos->clave))
         {
             $payload = json_encode(array("mensaje" => "Usuario logueado"));
         }else{
             $payload = json_encode(array("mensaje" => "Error!"));
+        }*/
+        
+       if(password_verify($parametros["clave"],$usuarioBaseDeDatos->clave))
+        {
+            $payload = "Retorno desde el controller $usuarioBaseDeDatos" ;
+        }else{
+            $payload = "Retorno desde el controller Error";
         }
         $response->getBody()->write($payload);
         return $response

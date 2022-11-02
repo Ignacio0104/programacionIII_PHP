@@ -12,6 +12,9 @@ use Slim\Routing\RouteCollectorProxy;
 use Slim\Routing\RouteContext;
 
 require_once  './middlewares/MiddlewareLogin.php';
+require_once  './middlewares/CheckDataMiddleWare.php';
+require_once  './middlewares/CheckTokenMiddleware.php';
+require_once './middlewares/CheckPerfilMiddleware.php';
 
 require __DIR__ . '/../vendor/autoload.php';
 
@@ -20,6 +23,7 @@ require_once './db/AccesoDatos.php';
 
 require_once './controllers/UsuarioController.php';
 require_once './controllers/LoginController.php';
+require_once './controllers/AutenticadorController.php';
 
 // Load ENV
 $dotenv = Dotenv\Dotenv::createImmutable(__DIR__);
@@ -36,13 +40,16 @@ $app->addBodyParsingMiddleware();
 
 // Routes
 $app->group('/usuarios', function (RouteCollectorProxy $group) {
-    $group->get('[/]', \UsuarioController::class . ':TraerTodos');
+    $group->get('[/]', \UsuarioController::class . ':TraerTodos')->add(new CheckPerfilMiddleware());
     $group->get('/{usuario}', \UsuarioController::class . ':TraerUno');
-    $group->post('[/]', \UsuarioController::class . ':CargarUno');
+    $group->post('[/]', \UsuarioController::class . ':CargarUno')->add(new CheckPerfilMiddleware());
     $group->put("/modificar", \UsuarioController::class . ':ModificarUno');
     $group->delete("/borrar", \UsuarioController::class . ':BorrarUno');
-    $group->post("/login", \LoginController::class . ':VerificarClave')->add(new MiddlewareLogin());   
-  });
+  })->add(new CheckTokenMiddleware());
+
+//Genero el token
+$app->post('/login', \AutentificadorController::class . ':CrearTokenLogin');
+
 
 $app->get('[/]', function (Request $request, Response $response) {    
     $response->getBody()->write("Login APP ");

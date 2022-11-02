@@ -10,7 +10,7 @@ class UsuarioController extends Usuario implements IApiUsable
 
         $usuario = $parametros['usuario'];
         $clave = $parametros['clave'];
-        $perfilUsuario = $parametros["perfil_usuario"];
+        $perfilUsuario = $parametros["perfil"];
 
         // Creamos el usuario
         $usr = new Usuario();

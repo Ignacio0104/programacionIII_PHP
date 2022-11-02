@@ -71,4 +71,9 @@ class Usuario
         $consulta->bindValue(':fechaBaja', date_format($fecha, 'Y-m-d H:i:s'));
         $consulta->execute();
     }
+
+    public function __toString()
+    {
+        return "ID: $this->id | Usuario: $this->usuario" ;
+    }
 }
