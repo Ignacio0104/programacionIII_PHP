@@ -11,9 +11,8 @@ class CheckPerfilMiddleware{
        $token = trim(explode("Bearer",$header)[1]);
        $response= new Response();
        try {
-        $data = json_encode(array('datos' => AutentificadorJWT::ObtenerData($token)));
-        echo $data;
-        if(strcmp($data["perfil"],"adminitrador")==0)
+        $data = AutentificadorJWT::ObtenerData($token);
+        if($data->perfil=="administrador")
         {
           echo "El usuario es admin";
         }else{
