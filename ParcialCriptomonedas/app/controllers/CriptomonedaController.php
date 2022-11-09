@@ -1,24 +1,34 @@
 <?php
-require_once './models/Usuario.php';
+require_once './models/Criptomoneda.php';
 
-class UsuarioController extends Usuario 
+class CriptomonedaController extends Criptomoneda 
 {
     public function CargarUno($request, $response, $args)
     {
         $parametros = $request->getParsedBody();
 
-        $usuario = $parametros['mail'];
-        $clave = $parametros['clave'];
-        $perfilUsuario = $parametros["perfil_usuario"];
+        $precio = $parametros['precio'];
+        $nombre = $parametros['nombre'];
+        $carpetaFotos = ".".DIRECTORY_SEPARATOR."fotosCripto".DIRECTORY_SEPARATOR.DIRECTORY_SEPARATOR;
+        if(!file_exists($carpetaFotos))
+        {
+            mkdir($carpetaFotos, 0777, true);
+        }
+
+        $nuevoNombre = $carpetaFotos.$_FILES["foto"]["name"];
+        rename($_FILES["foto"]["tmp_name"], $nuevoNombre);
+        $URLImagen = $nuevoNombre;
+        $nacionalidad = $parametros['nacionalidad'];
 
         // Creamos el usuario
-        $usr = new Usuario();
-        $usr->mail = $usuario;
-        $usr->clave = $clave;
-        $usr->perfil_usuario= $perfilUsuario;
-        $usr->crearUsuario();
+        $cripto = new Criptomoneda();
+        $cripto->precio = $precio;
+        $cripto->nombre = $nombre;
+        $cripto->URLImagen= $URLImagen;
+        $cripto->nacionalidad= $nacionalidad;
+        $cripto->crearCriptomoneda();
 
-        $payload = json_encode(array("mensaje" => "Usuario creado con exito"));
+        $payload = json_encode(array("mensaje" => "Criptomoneda creada con exito"));
 
         $response->getBody()->write($payload);
         return $response

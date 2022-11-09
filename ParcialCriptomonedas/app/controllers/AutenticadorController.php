@@ -7,12 +7,12 @@ class AutentificadorController extends AutentificadorJWT
     public function CrearTokenLogin ($request, $response,$args)
     {
         $parametros = $request->getParsedBody();
-        $usuarioBaseDeDatos=Usuario::obtenerUsuario($parametros["usuario"]);
+        $usuarioBaseDeDatos=Usuario::obtenerUsuario($parametros["mail"]);
         if($usuarioBaseDeDatos !=null)
         {
             if(password_verify($parametros["clave"],$usuarioBaseDeDatos->clave))
             {
-                $datos = array('usuario' => $usuarioBaseDeDatos->usuario, 'clave' => $usuarioBaseDeDatos->clave
+                $datos = array('usuario' => $usuarioBaseDeDatos->mail, 'clave' => $usuarioBaseDeDatos->clave
                 ,"perfil_usuario"=> $usuarioBaseDeDatos->perfil_usuario);
                 $token = AutentificadorJWT::CrearToken($datos);
                 $payload = json_encode(array('jwt' => $token));

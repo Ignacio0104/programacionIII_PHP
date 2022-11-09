@@ -14,7 +14,7 @@ class Usuario
         $consulta = $objAccesoDatos->prepararConsulta("INSERT INTO usuarios (mail, clave,perfil_usuario) 
         VALUES (:mail, :clave, :perfil_usuario)");
         $claveHash = password_hash($this->clave, PASSWORD_DEFAULT);
-        $consulta->bindValue(':usuario', $this->usuario, PDO::PARAM_STR);
+        $consulta->bindValue(':mail', $this->mail, PDO::PARAM_STR);
         $consulta->bindValue(':clave', $claveHash);
         $consulta->bindValue(':perfil_usuario', $this->perfil_usuario, PDO::PARAM_STR);
         $consulta->execute();
