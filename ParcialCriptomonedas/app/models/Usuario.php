@@ -3,16 +3,16 @@
 class Usuario
 {
     public $id;
-    public $usuario;
+    public $mail;
     public $clave;
-    public $fechaBaja;
     public $perfil_usuario;
+    public $fechaBaja;
 
     public function crearUsuario()
     {
         $objAccesoDatos = AccesoDatos::obtenerInstancia();
-        $consulta = $objAccesoDatos->prepararConsulta("INSERT INTO usuarios (usuario, clave,perfil_usuario) 
-        VALUES (:usuario, :clave, :perfil_usuario)");
+        $consulta = $objAccesoDatos->prepararConsulta("INSERT INTO usuarios (mail, clave,perfil_usuario) 
+        VALUES (:mail, :clave, :perfil_usuario)");
         $claveHash = password_hash($this->clave, PASSWORD_DEFAULT);
         $consulta->bindValue(':usuario', $this->usuario, PDO::PARAM_STR);
         $consulta->bindValue(':clave', $claveHash);
@@ -25,17 +25,17 @@ class Usuario
     public static function obtenerTodos()
     {
         $objAccesoDatos = AccesoDatos::obtenerInstancia();
-        $consulta = $objAccesoDatos->prepararConsulta("SELECT id, usuario, clave, fechaBaja, perfil_usuario FROM usuarios");
+        $consulta = $objAccesoDatos->prepararConsulta("SELECT * FROM usuarios");
         $consulta->execute();
 
         return $consulta->fetchAll(PDO::FETCH_CLASS, 'Usuario');
     }
 
-    public static function obtenerUsuario($usuario)
+    public static function obtenerUsuario($mail)
     {
         $objAccesoDatos = AccesoDatos::obtenerInstancia();
-        $consulta = $objAccesoDatos->prepararConsulta("SELECT id, usuario, clave, fechaBaja, perfil_usuario FROM usuarios WHERE usuario = :usuario");
-        $consulta->bindValue(':usuario', $usuario, PDO::PARAM_STR);
+        $consulta = $objAccesoDatos->prepararConsulta("SELECT * FROM usuarios WHERE mail = :mail");
+        $consulta->bindValue(':mail', $mail, PDO::PARAM_STR);
         $consulta->execute();
 
         return $consulta->fetchObject('Usuario');
@@ -44,13 +44,12 @@ class Usuario
     public static function modificarUsuario($usuario)
     {
         $objAccesoDato = AccesoDatos::obtenerInstancia();
-        $consulta = $objAccesoDato->prepararConsulta("UPDATE usuarios SET usuario = :usuario, 
+        $consulta = $objAccesoDato->prepararConsulta("UPDATE usuarios SET 
         clave = :clave, fechaBaja=:fechaBaja , 
-        perfil_usuario= :perfilUsuario WHERE id = :id");
+        perfil_usuario= :perfilUsuario WHERE mail = :mail");
         $claveHash = password_hash($usuario->clave, PASSWORD_DEFAULT);
-        $consulta->bindValue(':usuario', $usuario->usuario, PDO::PARAM_STR);
+        $consulta->bindValue(':mail', $usuario->mail, PDO::PARAM_STR);
         $consulta->bindValue(':clave', $claveHash, PDO::PARAM_STR);
-        $consulta->bindValue(':id', $usuario->id, PDO::PARAM_INT);
         if($usuario->fechaBaja != null)
         {
             $consulta->bindValue(':fechaBaja', $usuario->fechaBaja, PDO::PARAM_INT);
@@ -66,18 +65,14 @@ class Usuario
         $consulta->execute();
     }
 
-    public static function borrarUsuario($usuario)
+    public static function borrarUsuario($mail)
     {
         $objAccesoDato = AccesoDatos::obtenerInstancia();
-        $consulta = $objAccesoDato->prepararConsulta("UPDATE usuarios SET fechaBaja = :fechaBaja WHERE id = :id");
+        $consulta = $objAccesoDato->prepararConsulta("UPDATE usuarios SET fechaBaja = :fechaBaja WHERE mail = :mail");
         $fecha = date("Y-m-d H:i:s");
-        $consulta->bindValue(':id', $usuario, PDO::PARAM_INT);
+        $consulta->bindValue(':mail', $mail, PDO::PARAM_INT);
         $consulta->bindValue(':fechaBaja', $fecha);
         $consulta->execute();
     }
 
-    public function __toString()
-    {
-        return "ID: $this->id | Usuario: $this->usuario" ;
-    }
 }
