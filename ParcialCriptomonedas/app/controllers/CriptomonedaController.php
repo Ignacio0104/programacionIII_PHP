@@ -9,14 +9,7 @@ class CriptomonedaController extends Criptomoneda
 
         $precio = $parametros['precio'];
         $nombre = $parametros['nombre'];
-        $carpetaFotos = ".".DIRECTORY_SEPARATOR."fotosCripto".DIRECTORY_SEPARATOR.DIRECTORY_SEPARATOR;
-        if(!file_exists($carpetaFotos))
-        {
-            mkdir($carpetaFotos, 0777, true);
-        }
-        $nuevoNombre = $carpetaFotos.$_FILES["foto"]["name"];
-        rename($_FILES["foto"]["tmp_name"], $nuevoNombre);
-        $URLImagen = $nuevoNombre;
+        $URLImagen = $this->moverImagen();
         $nacionalidad = $parametros['nacionalidad'];
 
         // Creamos el usuario
@@ -69,23 +62,15 @@ class CriptomonedaController extends Criptomoneda
     
     public function ModificarUno($request, $response, $args)
     {
-        //$parametros = $request->getParsedBody();
         $datos = json_decode(file_get_contents("php://input"), true);
-        $usuarioAModificar = new Usuario();
-        $usuarioAModificar->id=$datos["id"]; 
-        $usuarioAModificar->usuario=$datos["usuario"]; 
-        $usuarioAModificar->clave=$datos["clave"]; 
-        if(array_key_exists("fechaBaja",$datos))
-        {
-          $usuarioAModificar->fechaBaja=$datos["fechaBaja"]; 
-        }
-        if(array_key_exists("perfil_usuario",$datos))
-        {
-          $usuarioAModificar->perfil_usuario=$datos["perfil_usuario"]; 
-        }
-        Usuario::modificarUsuario($usuarioAModificar);
-        $payload = json_encode(array("mensaje" => "Usuario modificado con exito"));
-
+        $criptoModificada = new Criptomoneda();
+        $criptoModificada->id=$datos["id"]; 
+        $criptoModificada->nombre=$datos["nombre"]; 
+        $criptoModificada->precio=$datos["precio"]; 
+        $criptoModificada->URLImagen=$this->moverImagenBackup();
+        $criptoModificada->nacionalidad=$datos["nacionalidad"]; 
+        Criptomoneda::modificarCriptomoneda($criptoModificada);
+        $payload = json_encode(array("mensaje" => "Criptomoneda modificada con exito"));
         $response->getBody()->write($payload);
         return $response
           ->withHeader('Content-Type', 'application/json');
@@ -101,5 +86,38 @@ class CriptomonedaController extends Criptomoneda
         $response->getBody()->write($payload);
         return $response
           ->withHeader('Content-Type', 'application/json');
+    }
+
+    private function moverImagen()
+    {
+      $carpetaFotos = ".".DIRECTORY_SEPARATOR."fotosCripto".DIRECTORY_SEPARATOR.DIRECTORY_SEPARATOR;
+      if(!file_exists($carpetaFotos))
+      {
+          mkdir($carpetaFotos, 0777, true);
+      }
+      $nuevoNombre = $carpetaFotos.$_FILES["foto"]["name"];
+      rename($_FILES["foto"]["tmp_name"], $nuevoNombre);
+
+      return $nuevoNombre;
+    }
+
+    
+    private function moverImagenBackup()
+    {
+      $carpetaFotos = ".".DIRECTORY_SEPARATOR."fotosCripto".DIRECTORY_SEPARATOR;
+      $datos = json_decode(file_get_contents("php://input"), true);
+      $nuevoNombre = $carpetaFotos.$datos["nombre"].".png";   
+      $carpetaBackUp= ".".DIRECTORY_SEPARATOR."fotosCripto".DIRECTORY_SEPARATOR."Backup".DIRECTORY_SEPARATOR;
+      if(file_exists($nuevoNombre))
+      {
+        if(!file_exists($carpetaBackUp))
+        {
+          mkdir($carpetaBackUp, 0777, true);
+        }
+        rename($nuevoNombre, $carpetaBackUp.$datos["nombre"].".png");
+
+      }
+      rename($datos["URLImagen"], $nuevoNombre);
+      return $nuevoNombre;
     }
 }

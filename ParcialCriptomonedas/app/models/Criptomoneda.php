@@ -74,6 +74,7 @@ class Criptomoneda
         $consulta->bindValue(':precio', $cripto->precio, PDO::PARAM_STR);
         $consulta->bindValue(':URLImagen', $cripto->URLImagen, PDO::PARAM_STR);
         $consulta->bindValue(':nacionalidad', $cripto->nacionalidad, PDO::PARAM_STR);
+        $consulta->bindValue(':id', $cripto->id, PDO::PARAM_STR);
         $consulta->execute();
     }
 
@@ -87,5 +88,6 @@ class Criptomoneda
         $consulta->bindValue(':fechaBaja', $fecha);
         $consulta->execute();
     }
+
 
 }
