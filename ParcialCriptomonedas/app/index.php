@@ -44,6 +44,7 @@ $app->group('/usuarios', function (RouteCollectorProxy $group) {
     $group->get('/ventasMoneda', \VentaController::class . ':TraerVentasPorCripto')->add(new CheckPerfilMiddleware());
     $group->get('/ventasParam', \VentaController::class . ':TraerVentasConParametros')->add(new CheckPerfilMiddleware());
     $group->post('/cargarCripto', \CriptomonedaController::class . ':CargarUno')->add(new CheckPerfilMiddleware());
+    $group->delete('/borrarCripto', \CriptomonedaController::class . ':BorrarUno')->add(new CheckPerfilMiddleware());
     $group->post('[/]', \UsuarioController::class . ':CargarUno')->add(new CheckPerfilMiddleware());
     $group->put("/modificar", \UsuarioController::class . ':ModificarUno')->add(new CheckPerfilMiddleware());
     $group->delete("/borrar", \UsuarioController::class . ':BorrarUno')->add(new CheckPerfilMiddleware());

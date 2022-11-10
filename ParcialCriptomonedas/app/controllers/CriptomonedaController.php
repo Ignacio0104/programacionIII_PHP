@@ -93,13 +93,10 @@ class CriptomonedaController extends Criptomoneda
 
     public function BorrarUno($request, $response, $args)
     {
-        //$parametros = $request->getParsedBody();
-
         $datos = json_decode(file_get_contents("php://input"), true);
-        $usuarioId = $datos['id'];
-        Usuario::borrarUsuario($usuarioId);
-
-        $payload = json_encode(array("mensaje" => "Usuario borrado con exito"));
+        $criptoId = $datos['idCripto'];
+        Criptomoneda::borrarCriptomoneda($criptoId);
+        $payload = json_encode(array("mensaje" => "Criptomoneda borrada con éxito"));
 
         $response->getBody()->write($payload);
         return $response
