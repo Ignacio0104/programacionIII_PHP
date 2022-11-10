@@ -35,12 +35,22 @@ class CriptomonedaController extends Criptomoneda
           ->withHeader('Content-Type', 'application/json');
     }
 
-    public function TraerUno($request, $response, $args)
+    public function TraerPorNacionalidad($request, $response, $args)
+    {
+        $pais = $_GET["nacionalidad"];
+        $lista = Criptomoneda::obtenerCriptomonedaPorPais($pais);
+        $payload = json_encode(array("listaCriptomonedasPais" => $lista));
+        $response->getBody()->write($payload);
+        return $response
+          ->withHeader('Content-Type', 'application/json');
+    }
+
+    public function TraerPorId($request, $response, $args)
     {
         // Buscamos usuario por nombre
-        $usr = $args['usuario'];
-        $usuario = Usuario::obtenerUsuario($usr);
-        $payload = json_encode($usuario);
+        $id = $args['id'];
+        $criptomoneda = Criptomoneda::obtenerCriptomonedaPorId($id );
+        $payload = json_encode($criptomoneda);
 
         $response->getBody()->write($payload);
         return $response
@@ -49,8 +59,8 @@ class CriptomonedaController extends Criptomoneda
 
     public function TraerTodos($request, $response, $args)
     {
-        $lista = Usuario::obtenerTodos();
-        $payload = json_encode(array("listaUsuario" => $lista));
+        $lista = Criptomoneda::obtenerTodos();
+        $payload = json_encode(array("listaCriptomonedas" => $lista));
         $response->getBody()->write($payload);
         return $response
           ->withHeader('Content-Type', 'application/json');

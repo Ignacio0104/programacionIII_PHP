@@ -28,7 +28,7 @@ class UsuarioController extends Usuario
     public function TraerUno($request, $response, $args)
     {
         // Buscamos usuario por nombre
-        $usr = $args['usuario'];
+        $usr = $args['id'];
         $usuario = Usuario::obtenerUsuario($usr);
         $payload = json_encode($usuario);
 

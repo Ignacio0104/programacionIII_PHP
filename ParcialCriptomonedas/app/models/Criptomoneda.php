@@ -42,6 +42,17 @@ class Criptomoneda
         return $consulta->fetchObject('Criptomoneda');
     }
 
+    public static function obtenerCriptomonedaPorPais($pais)
+    {
+        $objAccesoDatos = AccesoDatos::obtenerInstancia();
+        $consulta = $objAccesoDatos->prepararConsulta("SELECT * FROM criptomonedas WHERE nacionalidad = :pais");
+        $consulta->bindValue(':pais', $pais, PDO::PARAM_STR);
+        $consulta->execute();
+
+        return $consulta->fetchAll(PDO::FETCH_CLASS, 'Criptomoneda');
+    }
+
+
     public static function obtenerCriptomonedaPorId($id)
     {
         $objAccesoDatos = AccesoDatos::obtenerInstancia();

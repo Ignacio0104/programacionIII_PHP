@@ -38,15 +38,16 @@ $app->addBodyParsingMiddleware();
 
 // Routes
 $app->group('/usuarios', function (RouteCollectorProxy $group) {
-    $group->get('[/]', \UsuarioController::class . ':TraerTodos') ;
-    $group->get('/{usuario}', \UsuarioController::class . ':TraerUno');
+    $group->get('[/]', \CriptomonedaController::class . ':TraerTodos') ;
+    $group->get('/{id}', \CriptomonedaController::class . ':TraerPorId');
     $group->post('/cargarCripto', \CriptomonedaController::class . ':CargarUno')->add(new CheckPerfilMiddleware());
     $group->post('[/]', \UsuarioController::class . ':CargarUno')->add(new CheckPerfilMiddleware());
     $group->put("/modificar", \UsuarioController::class . ':ModificarUno')->add(new CheckPerfilMiddleware());
     $group->delete("/borrar", \UsuarioController::class . ':BorrarUno')->add(new CheckPerfilMiddleware());
   })->add(new CheckTokenMiddleware());
 
-
+$app->get('/traerCriptos', \CriptomonedaController::class . ':TraerTodos');
+$app->get('/traerCriptosPorNac', \CriptomonedaController::class . ':TraerPorNacionalidad');
 //Genero el token
 $app->post('/login', \AutentificadorController::class . ':CrearTokenLogin');
 

@@ -19,7 +19,6 @@ class CheckTokenMiddleware{
         $response->getBody()->write(json_encode(array('error - Token invalido' => $e->getMessage())));
         $response = $response->withStatus(401);
       }
-
       return $response
         ->withHeader('Content-Type', 'application/json');
     }
