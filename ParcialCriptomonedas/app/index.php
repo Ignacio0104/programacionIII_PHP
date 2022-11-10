@@ -51,6 +51,7 @@ $app->group('/usuarios', function (RouteCollectorProxy $group) {
 
 $app->get('/traerCriptos', \CriptomonedaController::class . ':TraerTodos');
 $app->get('/traerCriptosPorNac', \CriptomonedaController::class . ':TraerPorNacionalidad');
+$app->get('/imprimirVentas', \VentaController::class . ':ImprimirPDF') ;
 //Genero el token
 $app->post('/login', \AutentificadorController::class . ':CrearTokenLogin');
 

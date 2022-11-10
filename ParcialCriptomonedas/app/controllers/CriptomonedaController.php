@@ -1,6 +1,7 @@
 <?php
 require_once './models/Criptomoneda.php';
 
+
 class CriptomonedaController extends Criptomoneda 
 {
     public function CargarUno($request, $response, $args)
@@ -120,4 +121,6 @@ class CriptomonedaController extends Criptomoneda
       rename($datos["URLImagen"], $nuevoNombre);
       return $nuevoNombre;
     }
+
+
 }

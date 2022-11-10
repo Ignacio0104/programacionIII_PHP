@@ -1,5 +1,6 @@
 <?php
 require_once './models/Venta.php';
+require "./fpdf/fpdf.php";
 
 class VentaController extends Venta 
 {
@@ -46,6 +47,24 @@ class VentaController extends Venta
     }
 
     
+    public function ImprimirPDF($request, $response, $args)
+    {
+        $lista = Venta::obtenerTodos();
+        $pdf = new FPDF();
+        $pdf->AddPage();
+        $pdf->SetFont('Courier','B',12);
+        for ($i=0; $i <count($lista)-1 ; $i++) { 
+          $pdf->Cell(40,10,$lista[$i]);
+          $pdf->Ln();       
+        }
+        $pdf->Output('F', './archivos/' . "reportePDF" .'.pdf', 'I');
+        $payload = json_encode(array("PDF Guardado" => "El PDF se guardó con éxito"));
+        $response->getBody()->write($payload);
+        return $response
+          ->withHeader('Content-Type', 'application/json');
+    }
+
+    
     public function TraerVentasPorCripto($request, $response, $args)
     {
         $cripto = $_GET["cripto"];    
@@ -70,5 +89,5 @@ class VentaController extends Venta
           ->withHeader('Content-Type', 'application/json');
     }
 
-
-}
+  }
+?>

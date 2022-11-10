@@ -70,4 +70,10 @@ class Venta
 
         return $consulta->fetchAll(PDO::FETCH_ASSOC);
     }
+
+    public function __toString()
+    {
+        return "ID: $this->id - ID Cripto: $this->idCripto - Mail usuario: $this->mailUsuario\n
+                Fecha de compra $this->fechaCompra - Cantidad $this->cantidad" ;
+    }
 }
