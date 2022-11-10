@@ -58,6 +58,16 @@ class Venta
         return $consulta->fetchAll(PDO::FETCH_CLASS, 'Venta');
     }
 
-    
+    public static function obtenerVentaPorCripto($cripto)
+    {
+        $objAccesoDatos = AccesoDatos::obtenerInstancia();
+        $consulta = $objAccesoDatos->prepararConsulta(
+        "SELECT ventas.mailUsuario FROM ventas 
+        INNER JOIN criptomonedas ON criptomonedas.id = ventas.idCripto 
+        WHERE criptomonedas.nombre = 'Bitcoin'");
+        $consulta->bindValue(':cripto', $cripto, PDO::PARAM_STR);
+        $consulta->execute();
 
+        return $consulta->fetchAll(PDO::FETCH_ASSOC);
+    }
 }

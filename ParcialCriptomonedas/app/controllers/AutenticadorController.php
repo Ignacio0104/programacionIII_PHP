@@ -14,6 +14,7 @@ class AutentificadorController extends AutentificadorJWT
             {
                 $datos = array('usuario' => $usuarioBaseDeDatos->mail, 'clave' => $usuarioBaseDeDatos->clave
                 ,"perfil_usuario"=> $usuarioBaseDeDatos->perfil_usuario);
+                var_dump($usuarioBaseDeDatos);
                 $token = AutentificadorJWT::CrearToken($datos);
                 $payload = json_encode(array('jwt' => $token));
                 $response->getBody()->write($payload);

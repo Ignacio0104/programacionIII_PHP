@@ -41,6 +41,7 @@ $app->addBodyParsingMiddleware();
 $app->group('/usuarios', function (RouteCollectorProxy $group) {
     $group->get('[/]', \CriptomonedaController::class . ':TraerTodos') ;
     $group->post('/altaVenta', \VentaController::class . ':CargarUno');
+    $group->get('/ventasMoneda', \VentaController::class . ':TraerVentasPorCripto')->add(new CheckPerfilMiddleware());
     $group->get('/ventasParam', \VentaController::class . ':TraerVentasConParametros')->add(new CheckPerfilMiddleware());
     $group->post('/cargarCripto', \CriptomonedaController::class . ':CargarUno')->add(new CheckPerfilMiddleware());
     $group->post('[/]', \UsuarioController::class . ':CargarUno')->add(new CheckPerfilMiddleware());

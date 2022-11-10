@@ -45,6 +45,17 @@ class VentaController extends Venta
           ->withHeader('Content-Type', 'application/json');
     }
 
+    
+    public function TraerVentasPorCripto($request, $response, $args)
+    {
+        $cripto = $_GET["cripto"];    
+        $listaDeUsuarios= Venta::obtenerVentaPorCripto($cripto);
+        $payload = json_encode(array("listaDeUsuarios" => $listaDeUsuarios));
+        $response->getBody()->write($payload);
+        return $response
+          ->withHeader('Content-Type', 'application/json');
+    }
+
     public function TraerPorId($request, $response, $args)
     {
         // Buscamos usuario por nombre
