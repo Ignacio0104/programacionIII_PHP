@@ -14,7 +14,6 @@ class CriptomonedaController extends Criptomoneda
         {
             mkdir($carpetaFotos, 0777, true);
         }
-
         $nuevoNombre = $carpetaFotos.$_FILES["foto"]["name"];
         rename($_FILES["foto"]["tmp_name"], $nuevoNombre);
         $URLImagen = $nuevoNombre;
@@ -51,7 +50,9 @@ class CriptomonedaController extends Criptomoneda
         $id = $args['id'];
         $criptomoneda = Criptomoneda::obtenerCriptomonedaPorId($id );
         $payload = json_encode($criptomoneda);
-
+        if(!$criptomoneda){
+          $payload = json_encode(array("Error" => "No se encontró la criptomoneda solicitada"));
+        }
         $response->getBody()->write($payload);
         return $response
           ->withHeader('Content-Type', 'application/json');

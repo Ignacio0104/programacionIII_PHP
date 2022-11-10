@@ -22,6 +22,7 @@ require_once './db/AccesoDatos.php';
 require_once './controllers/UsuarioController.php';
 require_once './controllers/AutenticadorController.php';
 require_once './controllers/CriptomonedaController.php';
+require_once './controllers/VentaController.php';
 
 // Load ENV
 $dotenv = Dotenv\Dotenv::createImmutable(__DIR__);
@@ -39,7 +40,8 @@ $app->addBodyParsingMiddleware();
 // Routes
 $app->group('/usuarios', function (RouteCollectorProxy $group) {
     $group->get('[/]', \CriptomonedaController::class . ':TraerTodos') ;
-    $group->get('/{id}', \CriptomonedaController::class . ':TraerPorId');
+    $group->post('/altaVenta', \VentaController::class . ':CargarUno');
+    $group->get('/ventasParam', \VentaController::class . ':TraerVentasConParametros')->add(new CheckPerfilMiddleware());
     $group->post('/cargarCripto', \CriptomonedaController::class . ':CargarUno')->add(new CheckPerfilMiddleware());
     $group->post('[/]', \UsuarioController::class . ':CargarUno')->add(new CheckPerfilMiddleware());
     $group->put("/modificar", \UsuarioController::class . ':ModificarUno')->add(new CheckPerfilMiddleware());

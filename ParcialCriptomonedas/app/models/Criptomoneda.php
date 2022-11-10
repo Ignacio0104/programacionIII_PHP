@@ -42,6 +42,7 @@ class Criptomoneda
         return $consulta->fetchObject('Criptomoneda');
     }
 
+
     public static function obtenerCriptomonedaPorPais($pais)
     {
         $objAccesoDatos = AccesoDatos::obtenerInstancia();

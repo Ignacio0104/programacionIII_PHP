@@ -44,4 +44,19 @@ class Venta
         return $consulta->fetchObject('Venta');
     }
 
+    public static function obtenerVentaParametros($pais,$fechaInicio,$fechaFinal)
+    {
+        $objAccesoDatos = AccesoDatos::obtenerInstancia();
+        $consulta = $objAccesoDatos->prepararConsulta("SELECT * FROM ventas INNER JOIN criptomonedas ON ventas.idCripto = criptomonedas.id WHERE criptomonedas.nacionalidad 
+        = 'USA' AND ventas.fechaCompra > '2022-11-08' AND ventas.fechaCompra < '2022-11-12'");
+        $consulta->bindValue(':pais', $pais, PDO::PARAM_STR);
+        $consulta->bindValue(':fechaInicio', $fechaInicio, PDO::PARAM_STR);
+        $consulta->bindValue(':fechaFinal', $fechaFinal, PDO::PARAM_STR);
+        $consulta->execute();
+
+        return $consulta->fetchAll(PDO::FETCH_CLASS, 'Venta');
+    }
+
+    
+
 }
