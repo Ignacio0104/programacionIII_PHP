@@ -27,4 +27,19 @@ class VentaHortaliza
         return $objAccesoDatos->obtenerUltimoId();
     }
 
+    public static function obtenerVentaParametros($clima,$fechaInicio,$fechaFinal)
+    {
+        $objAccesoDatos = AccesoDatos::obtenerInstancia();
+        $consulta = $objAccesoDatos->prepararConsulta("SELECT * FROM ventasHortalizas INNER JOIN hortalizas 
+        ON ventasHortalizas.idHortaliza = hortalizas.id 
+        WHERE hortalizas.clima = :clima 
+        AND ventasHortalizas.fechaCompra > :fechaInicio AND ventasHortalizas.fechaCompra < :fechaFinal");
+        $consulta->bindValue(':clima', $clima, PDO::PARAM_STR);
+        $consulta->bindValue(':fechaInicio', $fechaInicio, PDO::PARAM_STR);
+        $consulta->bindValue(':fechaFinal', $fechaFinal, PDO::PARAM_STR);
+        $consulta->execute();
+
+        return $consulta->fetchAll(PDO::FETCH_CLASS, 'VentaHortaliza');
+    }
+
 }

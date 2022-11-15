@@ -41,6 +41,7 @@ $app->group('/usuarios', function (RouteCollectorProxy $group) {
   $group->get('/traerPorId', \HortalizaController::class . ':TraerPorId');
   $group->post('/altaHortaliza', \HortalizaController::class . ':CargarUno')->add(new CheckPerfilVendedorMiddleware());
   $group->post('/altaVenta', \VentaController::class . ':CargarUno')->add(new CheckVendedorProveedorMiddleware()) ;
+  $group->get('/traerVentaParam',\VentaController::class . ':TraerVentasConParametros')->add(new CheckPerfilVendedorMiddleware());
 })->add(new CheckTokenMiddleware());
 
 // Routes

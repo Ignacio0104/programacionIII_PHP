@@ -38,6 +38,19 @@ class VentaController extends VentaHortaliza
           ->withHeader('Content-Type', 'application/json');
     }
 
+    public function TraerVentasConParametros($request, $response, $args)
+    {
+        $clima = $_GET["clima"];
+        $inicio = $_GET["fechaInicio"];
+        $fin = $_GET["fechaFinal"];      
+        $listaDeVentas= VentaHortaliza::obtenerVentaParametros($clima,$inicio,$fin);
+        $payload = json_encode(array("listaDeVentas" => $listaDeVentas));
+        $response->getBody()->write($payload);
+        return $response
+          ->withHeader('Content-Type', 'application/json');
+    }
+
+
     private function moverImagen($cliente,$hortaliza)
     {
       $carpetaFotos = ".".DIRECTORY_SEPARATOR."FotosHortalizas".DIRECTORY_SEPARATOR.DIRECTORY_SEPARATOR;
