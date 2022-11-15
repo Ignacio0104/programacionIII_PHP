@@ -2,6 +2,7 @@
 require_once './models/Hortaliza.php';
 require_once './models/VentaHortaliza.php';
 require_once './models/Usuario.php';
+require "./fpdf/fpdf.php";
 
 class VentaController extends VentaHortaliza 
 {
@@ -59,6 +60,26 @@ class VentaController extends VentaHortaliza
         return $response
           ->withHeader('Content-Type', 'application/json');
     }
+
+    public function ImprimirPDF($request, $response, $args)
+    {
+        $lista = VentaHortaliza::obtenerTodos();
+        $pdf = new FPDF();
+        $pdf->AddPage();
+        $pdf->SetFont('Courier','B',10);
+        $pdf->Cell(40,10,"Lista de ventas: ");
+        $pdf->Ln();
+        for ($i=0; $i <count($lista)-1 ; $i++) { 
+          $pdf->Cell(40,10,$lista[$i]);
+          $pdf->Ln();       
+        }
+        $pdf->Output('F', './archivos/' . "reporteVentasHortalizas" .'.pdf', 'I');
+        $payload = json_encode(array("PDF Guardado" => "El PDF se guardó con éxito"));
+        $response->getBody()->write($payload);
+        return $response
+          ->withHeader('Content-Type', 'application/json');
+    }
+
 
 
     private function moverImagen($cliente,$hortaliza)

@@ -51,10 +51,11 @@ $app->group('/usuarios', function (RouteCollectorProxy $group) {
 // Routes
 $app->post('/login', \AutentificadorController::class . ':CrearTokenLogin');
 
-//Solo para la primer carga
+
 $app->post('/altaUsuarios', \UsuarioController::class . ':CargarUno');
 $app->get('/traerHortalizas',\HortalizaController::class . ':TraerTodos');
 $app->get('/traerParametros',\HortalizaController::class . ':TraerPorClima');
+$app->get('/imprimirPDF',\VentaController::class . ':ImprimirPDF');
 
 $app->get('[/]', function (Request $request, Response $response) {    
     $response->getBody()->write("Parcial Programacion III - CRIPTOMONEDAS");

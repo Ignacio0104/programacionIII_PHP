@@ -58,4 +58,19 @@ class VentaHortaliza
         return $consulta->fetchAll(PDO::FETCH_ASSOC);
     }
 
+    public static function obtenerTodos()
+    {
+        $objAccesoDatos = AccesoDatos::obtenerInstancia();
+        $consulta = $objAccesoDatos->prepararConsulta("SELECT * FROM ventasHortalizas");
+        $consulta->execute();
+
+        return $consulta->fetchAll(PDO::FETCH_CLASS, 'VentaHortaliza');
+    }
+
+    public function __toString()
+    {
+        return "ID: $this->id - ID Hortaliza: $this->idHortaliza - Fecha de compra $this->fechaCompra \r\n Cantidad $this->cantidad - Tipo Unidad $this->tipoUnidad" ;
+    }
+
+
 }
