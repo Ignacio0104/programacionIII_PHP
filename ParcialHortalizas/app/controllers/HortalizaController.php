@@ -76,9 +76,12 @@ class HortalizaController extends Hortaliza
     {
         $datos = json_decode(file_get_contents("php://input"), true);
         $idHortaliza = $datos['id'];
-        Hortaliza::borrarHortaliza($idHortaliza);
-        $payload = json_encode(array("mensaje" => "Hortaliza borrada con éxito"));
-
+        if(Hortaliza::borrarHortaliza($idHortaliza)>0)
+        {
+          $payload = json_encode(array("mensaje" => "Hortaliza borrada con éxito"));
+        }else{
+          $payload = json_encode(array("Error!" => "No se encontró la hortaliza o ya esta borrada"));
+        }
         $response->getBody()->write($payload);
         return $response
           ->withHeader('Content-Type', 'application/json');

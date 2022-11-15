@@ -14,6 +14,7 @@ require_once  './middlewares/CheckTokenMiddleware.php';
 require_once './middlewares/CheckPerfilVendedorMiddleware.php';
 require_once './middlewares/CheckVendedorProveedorMiddleware.php';
 require_once './middlewares/CheckPerfilProveedorMiddleware.php';
+require_once './middlewares/MiddlewareSalida.php';
 
 require __DIR__ . '/../vendor/autoload.php';
 
@@ -43,7 +44,8 @@ $app->group('/usuarios', function (RouteCollectorProxy $group) {
   $group->post('/altaHortaliza', \HortalizaController::class . ':CargarUno')->add(new CheckPerfilVendedorMiddleware());
   $group->post('/altaVenta', \VentaController::class . ':CargarUno')->add(new CheckVendedorProveedorMiddleware()) ;
   $group->get('/traverVentasNombre',\VentaController::class . ':TraerVentasPorNombre')->add(new CheckPerfilProveedorMiddleware());
-  $group->delete('/borrarHortaliza', \HortalizaController::class . ':BorrarUno')->add(new CheckPerfilVendedorMiddleware());
+  $group->delete('/borrarHortaliza', \HortalizaController::class . ':BorrarUno')
+  ->add(new CheckPerfilVendedorMiddleware())->add(new MiddlewareSalida());
   $group->get('/traerVentaParam',\VentaController::class . ':TraerVentasConParametros')->add(new CheckPerfilVendedorMiddleware());
   $group->put("/modificarHortaliza", \HortalizaController::class . ':ModificarUno')->add(new CheckVendedorProveedorMiddleware());
 })->add(new CheckTokenMiddleware());

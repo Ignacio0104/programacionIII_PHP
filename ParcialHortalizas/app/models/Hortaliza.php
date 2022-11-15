@@ -63,6 +63,8 @@ class Hortaliza
         $consulta->bindValue(':id', $idHortaliza, PDO::PARAM_INT);
         $consulta->bindValue(':fechaBaja', $fecha);
         $consulta->execute();
+
+        return $consulta->rowCount();
     }
 
     public static function modificarHortaliza($hortaliza)
