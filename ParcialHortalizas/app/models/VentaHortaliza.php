@@ -42,4 +42,20 @@ class VentaHortaliza
         return $consulta->fetchAll(PDO::FETCH_CLASS, 'VentaHortaliza');
     }
 
+    
+    public static function obtenerVentaPorNombre($hortaliza)
+    {
+        $objAccesoDatos = AccesoDatos::obtenerInstancia();
+        $consulta = $objAccesoDatos->prepararConsulta(
+        "SELECT mail FROM usuarios INNER JOIN ventasHortalizas 
+        ON usuarios.id = ventasHortalizas.idCliente
+        INNER JOIN hortalizas 
+        ON ventasHortalizas.idHortaliza = hortalizas.id 
+        WHERE hortalizas.nombre =:hortaliza");
+        $consulta->bindValue(':hortaliza', $hortaliza, PDO::PARAM_STR);
+        $consulta->execute();
+
+        return $consulta->fetchAll(PDO::FETCH_ASSOC);
+    }
+
 }

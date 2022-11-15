@@ -50,6 +50,16 @@ class VentaController extends VentaHortaliza
           ->withHeader('Content-Type', 'application/json');
     }
 
+    public function TraerVentasPorNombre($request, $response, $args)
+    {
+        $hortaliza = $_GET["hortaliza"];    
+        $listaDeUsuarios= VentaHortaliza::obtenerVentaPorNombre($hortaliza);
+        $payload = json_encode(array("listaDeUsuarios" => $listaDeUsuarios));
+        $response->getBody()->write($payload);
+        return $response
+          ->withHeader('Content-Type', 'application/json');
+    }
+
 
     private function moverImagen($cliente,$hortaliza)
     {
