@@ -43,7 +43,9 @@ $app->group('/usuarios', function (RouteCollectorProxy $group) {
   $group->post('/altaHortaliza', \HortalizaController::class . ':CargarUno')->add(new CheckPerfilVendedorMiddleware());
   $group->post('/altaVenta', \VentaController::class . ':CargarUno')->add(new CheckVendedorProveedorMiddleware()) ;
   $group->get('/traverVentasNombre',\VentaController::class . ':TraerVentasPorNombre')->add(new CheckPerfilProveedorMiddleware());
+  $group->delete('/borrarHortaliza', \HortalizaController::class . ':BorrarUno')->add(new CheckPerfilVendedorMiddleware());
   $group->get('/traerVentaParam',\VentaController::class . ':TraerVentasConParametros')->add(new CheckPerfilVendedorMiddleware());
+  $group->put("/modificarHortaliza", \HortalizaController::class . ':ModificarUno')->add(new CheckVendedorProveedorMiddleware());
 })->add(new CheckTokenMiddleware());
 
 // Routes

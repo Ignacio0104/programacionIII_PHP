@@ -71,6 +71,35 @@ class HortalizaController extends Hortaliza
         return $response
           ->withHeader('Content-Type', 'application/json');
     }
+
+    public function BorrarUno($request, $response, $args)
+    {
+        $datos = json_decode(file_get_contents("php://input"), true);
+        $idHortaliza = $datos['id'];
+        Hortaliza::borrarHortaliza($idHortaliza);
+        $payload = json_encode(array("mensaje" => "Hortaliza borrada con éxito"));
+
+        $response->getBody()->write($payload);
+        return $response
+          ->withHeader('Content-Type', 'application/json');
+    }
+
+    public function ModificarUno($request, $response, $args)
+    {
+        $datos = json_decode(file_get_contents("php://input"), true);
+        $hortaliza = new Hortaliza();
+        $hortaliza->id=$datos["id"]; 
+        $hortaliza->nombre=$datos["nombre"]; 
+        $hortaliza->precio=$datos["precio"]; 
+        $hortaliza->URLImagen=$this->moverImagenBackup();
+        $hortaliza->clima=$datos["clima"]; 
+        $hortaliza->tipoUnidad=$datos["tipoUnidad"]; 
+        Hortaliza::modificarHortaliza($hortaliza);
+        $payload = json_encode(array("mensaje" => "Hortaliza modificada con exito"));
+        $response->getBody()->write($payload);
+        return $response
+          ->withHeader('Content-Type', 'application/json');
+    }
     
     private function moverImagen()
     {
@@ -82,6 +111,25 @@ class HortalizaController extends Hortaliza
       $nuevoNombre = $carpetaFotos.$_FILES["URLImagen"]["name"];
       rename($_FILES["URLImagen"]["tmp_name"], $nuevoNombre);
 
+      return $nuevoNombre;
+    }
+
+    private function moverImagenBackup()
+    {
+      $carpetaFotos = ".".DIRECTORY_SEPARATOR."fotosHortalizas".DIRECTORY_SEPARATOR;
+      $datos = json_decode(file_get_contents("php://input"), true);
+      $nuevoNombre = $carpetaFotos.str_replace(' ', '', $datos["nombre"]).".png";   
+      $carpetaBackUp= ".".DIRECTORY_SEPARATOR."fotosHortalizas".DIRECTORY_SEPARATOR."Backup".DIRECTORY_SEPARATOR;
+      if(file_exists($nuevoNombre))
+      {
+        if(!file_exists($carpetaBackUp))
+        {
+          mkdir($carpetaBackUp, 0777, true);
+        }
+        rename($nuevoNombre, $carpetaBackUp.$datos["nombre"].".png");
+
+      }
+      rename($datos["URLImagen"], $nuevoNombre);
       return $nuevoNombre;
     }
 
