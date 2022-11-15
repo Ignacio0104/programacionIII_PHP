@@ -10,19 +10,19 @@ use Psr\Http\Server\RequestHandlerInterface;
 use Slim\Factory\AppFactory;
 use Slim\Routing\RouteCollectorProxy;
 use Slim\Routing\RouteContext;
-
 require_once  './middlewares/CheckTokenMiddleware.php';
-require_once './middlewares/CheckPerfilMiddleware.php';
+require_once './middlewares/CheckPerfilVendedorMiddleware.php';
+require_once './middlewares/CheckVendedorProveedorMiddleware.php';
 
 require __DIR__ . '/../vendor/autoload.php';
 
 require_once './db/AccesoDatos.php';
-// require_once './middlewares/Logger.php';
 
 require_once './controllers/UsuarioController.php';
 require_once './controllers/AutenticadorController.php';
-require_once './controllers/CriptomonedaController.php';
+require_once './controllers/HortalizaController.php';
 require_once './controllers/VentaController.php';
+
 
 // Load ENV
 $dotenv = Dotenv\Dotenv::createImmutable(__DIR__);
@@ -37,22 +37,19 @@ $app->addErrorMiddleware(true, true, true);
 // Add parse body
 $app->addBodyParsingMiddleware();
 
-// Routes
 $app->group('/usuarios', function (RouteCollectorProxy $group) {
-    $group->get('[/]', \CriptomonedaController::class . ':TraerTodos') ;
-    $group->post('/altaVenta', \VentaController::class . ':CargarUno');
-    $group->get('/ventasMoneda', \VentaController::class . ':TraerVentasPorCripto')->add(new CheckPerfilMiddleware());
-    $group->get('/ventasParam', \VentaController::class . ':TraerVentasConParametros')->add(new CheckPerfilMiddleware());
-    $group->post('/cargarCripto', \CriptomonedaController::class . ':CargarUno')->add(new CheckPerfilMiddleware());
-    $group->delete('/borrarCripto', \CriptomonedaController::class . ':BorrarUno')->add(new CheckPerfilMiddleware());
-    $group->put("/modificar", \CriptomonedaController::class . ':ModificarUno')->add(new CheckPerfilMiddleware());
-  })->add(new CheckTokenMiddleware());
+  $group->get('/traerPorId', \HortalizaController::class . ':TraerPorId');
+  $group->post('/altaHortaliza', \HortalizaController::class . ':CargarUno')->add(new CheckPerfilVendedorMiddleware());
+  $group->post('/altaVenta', \VentaController::class . ':CargarUno')->add(new CheckVendedorProveedorMiddleware()) ;
+})->add(new CheckTokenMiddleware());
 
-$app->get('/traerCriptos', \CriptomonedaController::class . ':TraerTodos');
-$app->get('/traerCriptosPorNac', \CriptomonedaController::class . ':TraerPorNacionalidad');
-$app->get('/imprimirVentas', \VentaController::class . ':ImprimirPDF') ;
-//Genero el token
+// Routes
 $app->post('/login', \AutentificadorController::class . ':CrearTokenLogin');
+
+//Solo para la primer carga
+$app->post('/altaUsuarios', \UsuarioController::class . ':CargarUno');
+$app->get('/traerHortalizas',\HortalizaController::class . ':TraerTodos');
+$app->get('/traerParametros',\HortalizaController::class . ':TraerPorClima');
 
 $app->get('[/]', function (Request $request, Response $response) {    
     $response->getBody()->write("Parcial Programacion III - CRIPTOMONEDAS");
